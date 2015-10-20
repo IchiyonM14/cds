@@ -17,7 +17,11 @@ module.exports = {
   	nombre:{
   		type: 'string',
     	required: true
-  	}
+  	},
+    libros: {
+      collection: 'libros',
+      via: 'codigo'
+    }
   }
 };
 

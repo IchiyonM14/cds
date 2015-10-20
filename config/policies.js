@@ -16,6 +16,12 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.policies.html
  */
 
+function noParmsWrapper(arr) {
+  return function (req, res, next) {
+    req.options.noParms = arr;
+    next();
+  }
+};
 
 module.exports.policies = {
 
@@ -30,6 +36,18 @@ module.exports.policies = {
   UserController: {
     '*': 'isAuthenticated',
     'login': true
+  },
+  GruposController: { //ad admin stuff
+    //'*': 'isAuthenticated', //later activate this
+    '*': true,
+    'create': [noParmsWrapper(['id']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id']), 'noBodyParms']
+  },
+  LibrosController: { //ad admin stuff
+    //'*': 'isAuthenticated', //later activate this
+    '*': true,
+    'create': [noParmsWrapper(['id','stock']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id','stock']), 'noBodyParms']
   }
 
   /***************************************************************************

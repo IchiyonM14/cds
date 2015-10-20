@@ -6,24 +6,35 @@
 */
 
 module.exports = {
-
   attributes: {
-  	id: { //Añadir override para no permitir ingresar id al crear -> posible con una policy
+  	id: { //Añadir override para no permitir ingresar id al crear -> posible con una policy  ✔✔
   		type: 'integer',
   		autoIncrement: true,
   		primaryKey: true,
   		unique: true
   	},
-  	codigo: {
-  		model: 'obras'
+  	codigo: { //evitar duplicados de estas dos llaves foraneas ✔✔
+  		model: 'obras',
+      required: true
   	},
-  	grupo: {
-  		model: 'grupos'
+  	grupo: { //evitar duplicados de estas dos llaves foraneas ✔✔
+  		model: 'grupos',
+      required: true
   	},
-  	stock: { //Añadir override para no permitir ingresar stock al crear -> posible con una policy
+  	stock: { //Añadir override para no permitir ingresar stock al crear -> posible con una policy ✔✔
   		type: 'integer',
   		defaultsTo: 0
   	}
+  },
+  beforeCreate: function (values, cb) { //para garantizar no duplicados en codigo -- grupo
+    Libros.findOne({
+      codigo: values.codigo,
+      grupo: values.grupo
+    }).exec(function(err, lib){
+      if(err) return cb(err);
+      if(lib) return cb('Not unique');
+      cb(null, values);
+    });
   }
 };
 
