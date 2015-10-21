@@ -1,10 +1,6 @@
 {
-  "name": "Codesa",
-  "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
-  "keywords": [],
   "dependencies": {
+    "grunt-bower-task": "^0.3.4",
     "bcrypt": "^0.8.5",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
@@ -25,8 +21,14 @@
     "rc": "~0.5.0",
     "sails": "~0.11.2",
     "sails-disk": "~0.10.0",
+    "sails-generate-bower": "0.0.2",
     "sails-postgresql": "^0.10.16"
   },
+  "name": "Codesa",
+  "private": true,
+  "version": "0.0.0",
+  "description": "a Sails application",
+  "keywords": [],
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js"
