@@ -35,6 +35,13 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
+  
+  'get /app': {
+    view: 'ngpage',
+    locals: {
+      layout: 'nglayout'
+    }
+  },
 
   /***************************************************************************
   *                                                                          *
