@@ -36,12 +36,7 @@ module.exports.routes = {
     view: 'homepage'
   },
   
-  'get /app': {
-    view: 'ngpage',
-    locals: {
-      layout: 'nglayout'
-    }
-  },
+  'get /app': 'ViewsController.app',
 
   /***************************************************************************
   *                                                                          *
@@ -53,16 +48,16 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'get /login': {
-    view: 'login'
-  },
+  // 'get /login': {
+  //   view: 'login'
+  // },
 
   'post /login': 'UserController.login',
 
   '/logout': 'UserController.logout',
 
-  'get /signup': {
-    view: 'signup'
-  }
+  // 'get /signup': { //Esto sera solo para admins
+  //   view: 'signup'
+  // }
 
 };

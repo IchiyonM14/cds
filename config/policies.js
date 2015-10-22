@@ -33,6 +33,9 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  ViewsController: {
+    '*': 'isAuthenticated'
+  },
   UserController: {
     '*': 'isAuthenticated',
     'login': true

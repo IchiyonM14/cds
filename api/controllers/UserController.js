@@ -14,11 +14,7 @@ module.exports = {
         rest: true, 
         shortcuts: false 
     },
-	hi: function(req, res) {
-		return res.json({msg:"All good mate!", status:200})
-	},
 	login: function(req, res) {
-
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
                 return res.send({
@@ -28,10 +24,11 @@ module.exports = {
             }
             req.logIn(user, function(err) {
                 if (err) res.send(err);
-                return res.send({
-                    message: info.message,
-                    user: user
-                });
+                return res.redirect('/app');
+                // return res.send({
+                //     message: info.message,
+                //     user: user
+                // });
             });
 
         })(req, res);
