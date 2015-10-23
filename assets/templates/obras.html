@@ -1,16 +1,60 @@
-<table class="table">
-	<thead>
-		<th>C&oacute;digo</th>
-		<th>Nombre</th>
-		<th>Fecha Registro</th>
-		<th>Grupos</th>
-	</thead>
-	<tbody>
-		<tr ng-repeat="obra in obras">
-			<td>{{obra.codigo}}</td>
-			<td>{{obra.nombre}}</td>
-			<td>{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
-			<td><span class="label label-success" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span></td>
-		</tr>
-	</tbody>
-</table>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="row">
+			<div class="col-sm-4 col-xs-8">
+				<form>
+					<div class="form-group">
+						<label for="filterObras" class="sr-only">Filtro</label>
+						<input ng-if="!(addingObra || editingObra)" class="form-control" type="text" name="filterObras" id="filterObras" placeholder="Filtrar por aqui">
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
+				<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-danger" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12" ng-show="addingObra"> <!-- template for new Obra-->
+		<form ng-submit="createObra()">
+			<legend>Nueva Obra</legend>
+			<div class="form-group">
+				<label for="codigoObra">C&oacute;digo de Obra</label>
+				<input ng-model="newObra.codigo" class="form-control" type="text" name="codigoObra" id="codigoObra" placeholder="C&oacute;digo" ng-required="true">
+			</div>
+			<div class="form-group">
+				<label for="nombreObra" class="sr-only">Nombre de la Obra</label>
+				<input ng-model="newObra.nombre" class="form-control" type="text" name="nombreObra" id="nombreObra" placeholder="Nombre" ng-required="true">
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Crear Nuevo</button>
+			</div>
+		</form>
+	</div>  <!--template for new Obra-->
+	<div class="col-xs-12" ng-hide="addingObra || editingObra">
+		<p class="lead text-warning text-center" ng-if="!obras.length">No hay Obras en Base de Datos</p>
+		<table class="table" ng-if="obras.length">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Nombre</th>
+				<th>Fecha Registro</th>
+				<th>Grupos</th>
+				<th>Editar/Borrar</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="obra in obras">
+					<td>{{obra.codigo}}</td>
+					<td>{{obra.nombre}}</td>
+					<td>{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+					<td>
+						<span class="label label-success" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span>
+					</td>
+					<td>
+						<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
