@@ -28,6 +28,9 @@
 // @import 'pages/signup.less';
 //
 // etc.
+@small-dsk-n-up:     ~"(min-width: 768px)";
+
+
 body {
 	background: rgb(234, 113, 96);
 	&.app{
@@ -37,5 +40,32 @@ body {
 	.jumbotron{
 		background: rgba(231, 224, 214,0.7);
 		margin-top: 50px;
+	}
+}
+.on-corner-form{
+	position: fixed;
+	background: #fff;
+    padding: 20px 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+	bottom: auto;
+	top: 70px;
+	left: auto;
+	right: auto;
+	@media @small-dsk-n-up{
+		top: auto;
+		bottom: 15px;
+    	right: 15px;
+	}
+}
+.label{
+	&.on-table-label{
+		font-size: 100%;
+		margin: 0px 5px;
+		&:first-child{
+			margin-left: 0px;
+		}
+		&:last-child{
+			margin-right: 0px;
+		}
 	}
 }
