@@ -1,5 +1,6 @@
 <div class="row">
-	<div class="col-xs-12">
+	<div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra"></div>
+	<div class="col-xs-12 fixed-on-xs">
 		<div class="row">
 			<div class="col-sm-4 col-xs-8">
 				<form>
@@ -49,9 +50,9 @@
 			</div>
 		</form>
 	</div>  <!--template for Edit Obra-->
-	<div class="col-xs-12" ng-hide="addingObra || editingObra">
+	<div class="col-xs-12 pt-60-on-xs" ng-hide="addingObra || editingObra">
 		<p class="lead text-warning text-center" ng-if="!obras.length">No hay Obras en Base de Datos</p>
-		<table class="table" ng-if="obras.length">
+		<table class="table resp-table" ng-if="obras.length">
 			<thead>
 				<th>C&oacute;digo</th>
 				<th>Nombre</th>
@@ -61,13 +62,14 @@
 			</thead>
 			<tbody>
 				<tr ng-repeat="obra in obras | filter:filter.obras">
-					<td>{{obra.codigo}}</td>
-					<td>{{obra.nombre}}</td>
-					<td>{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
-					<td>
+					<td data-label="C&oacute;digo">{{obra.codigo}}</td>
+					<td data-label="Nombre">{{obra.nombre}}</td>
+					<td data-label="Fecha Registro">{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+					<td data-label="Grupos">
+						<button class="btn btn-default text-primary"><span class="glyphicon glyphicon-plus"></span></button>
 						<span class="label label-success on-table-label" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span>
 					</td>
-					<td>
+					<td data-label="Editar/Borrar">
 						<button class="btn btn-warning" ng-click="setEditObra(obra)"><span class="glyphicon glyphicon-pencil"></span></button>
 						<button class="btn btn-danger" ng-click="deleteObra(obra)"><span class="glyphicon glyphicon-remove"></span></button>
 					</td>
