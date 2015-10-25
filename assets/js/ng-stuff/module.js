@@ -1,5 +1,5 @@
 var codesa = angular.module("codesa", ['ngRoute']);
-codesa.config(function ($routeProvider) {
+codesa.config(function ($routeProvider, $locationProvider) {
 	$routeProvider
 	// route for the home page
 		.when('/', {
@@ -10,7 +10,11 @@ codesa.config(function ($routeProvider) {
 			templateUrl: 'templates/obras.html',
 			controller: 'LibrosController'
 		})
-
+		.when('/Libros', {
+			templateUrl: 'templates/libros.html',
+			controller: 'LibrosController'
+		})
+	// $locationProvider.html5Mode(true);
 // 	// route for the about page
 // 		.when('/about', {
 // 			templateUrl: 'pages/about.html',

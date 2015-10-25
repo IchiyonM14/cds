@@ -39,6 +39,19 @@ codesa
 		}
 	}
 }])
+.factory('LibrosService', ['$http', function($http){
+	return {
+		getAll: function(callback){
+			$http.get("/libros")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
+	}
+}])
 .factory('GruposService',['$http', function($http){
 	return {
 		getAll: function(callback){

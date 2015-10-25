@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" ng-init="ObrasStuff()">
 	<div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra"></div>
 	<div class="col-xs-12 fixed-on-xs">
 		<div class="row">
@@ -66,7 +66,6 @@
 					<td data-label="Nombre">{{obra.nombre}}</td>
 					<td data-label="Fecha Registro">{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
 					<td data-label="Grupos">
-						<button class="btn btn-default text-primary"><span class="glyphicon glyphicon-plus"></span></button>
 						<span class="label label-success on-table-label" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span>
 					</td>
 					<td data-label="Editar/Borrar">

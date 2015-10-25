@@ -7,7 +7,9 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 
 # Por Hacer
 ## Generales
-*    Incluir [Ng-Animate](https://docs.angularjs.org/api/ngAnimate) al proyecto
+*   Incluir [Ng-Animate](https://docs.angularjs.org/api/ngAnimate) al proyecto
+*	Cambiar 404 500 y 403 pages
+*	Habilitar [CSRF](http://sailsjs.org/documentation/reference/configuration/sails-config-csrf)
 
 ## Inicio 
 
@@ -45,6 +47,15 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 *	Consultas Avanzadas _a nivel de serivdor_
 	*	ej: Rango de fechas, stock, etc
 *	Agregar tipos o grupos a Obras - _Ver caso abajo_
+
+## Libros
+
+[http://localhost:1337/app#/Obras](http://localhost:1337/app#/Obras) o '/app#/Obras'
+
+*	Afinar el Filter
+	*	Permitir buscar por stock y tipo
+*	Labels a Stock y Tipo en Tabla
+	*	Stock rojo cuando cero, en menos de 10 amarillo, verde de lo contrario
 
 # Casos
 ## Obras

@@ -1,0 +1,40 @@
+<div class="row" ng-init="librosStuff()">
+	<div class="col-xs-12 visible-xs hidder"></div>
+	<div class="col-xs-12 fixed-on-xs">
+		<div class="row">
+			<div class="col-sm-4 col-xs-8">
+				<form>
+					<div class="form-group">
+						<label for="filterLibros" class="sr-only">Filtro</label>
+						<input ng-model="filter.libros.$" class="form-control" type="text" name="filterLibros" id="filterLibros" placeholder="Filtrar por aqui">
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
+				<!--<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>-->
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-12 pt-60-on-xs">
+		<p class="lead text-warning text-center" ng-if="!libros.length">No hay Libros en Base de Datos</p>
+		<table class="table resp-table" ng-if="libros.length">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Nombre</th>
+				<th>Tipo</th>
+				<th>Stock</th>
+				<th>Fecha Registro</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="libro in libros | filter:filter.libros">
+					<td data-label="C&oacute;digo">{{libro.codigo.codigo}}</td>
+					<td data-label="Nombre">{{libro.codigo.nombre}}</td>
+					<td data-label="Tipo"><span class="label label-primary lead">{{libro.grupo.tipo}}</span></td>
+					<td data-label="Stock"><span class="label label-{{libro.stock | stockcolor}} lead">{{libro.stock}}</span></td>
+					<td data-label="Fecha Registro">{{libro.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

@@ -9,29 +9,43 @@ codesa
 		return "n/a";
 	}
 })
-.controller("LibrosController", ['$scope', '$http', 'ObrasService', 'GruposService', 
-function($scope, $http, ObrasService, GruposService){
+.filter('stockcolor',function () {
+	return function(input){
+		if (input <= 0)
+			return "danger";
+		if (input <= 10)
+			return "warning";
+		return "success";
+	}
+})
+.controller("LibrosController", ['$scope', '$http', 'ObrasService', 'GruposService', 'LibrosService', 
+function($scope, $http, ObrasService, GruposService, LibrosService){
 	
 	$scope.tipos = [];
 	$scope.obras = [];
+	$scope.libros = [];
+	
 	$scope.newObra = {};
 	$scope.editObra = {};
 	
 	$scope.addingObra = false;
 	$scope.editingObra = false;
 	$scope.filter = {
-		obras: ''
+		obras: '',
+		libros: ''
 	};
 	
-	GruposService.getAll(function(err, body,  stat){
-		if (err) return false;
-		$scope.tipos = body;
-	});
-	
-	ObrasService.getAll(function(err, body,  stat){
-		if (err) return false;
-		$scope.obras = body;
-	});
+	$scope.ObrasStuff = function(){ //Datos Requeridos por vista Obras
+		GruposService.getAll(function(err, body,  stat){
+			if (err) return false;
+			$scope.tipos = body;
+		});
+		
+		ObrasService.getAll(function(err, body,  stat){
+			if (err) return false;
+			$scope.obras = body;
+		});
+	};
 	
 	$scope.setNewObra = function () {
 		$scope.newObra = {};
@@ -108,7 +122,13 @@ function($scope, $http, ObrasService, GruposService){
 				}
 			}
 		}
-		// $scope.$apply();
 	}
+	
+	$scope.librosStuff = function () { //datos requeridos por vista libros
+		LibrosService.getAll(function (err, body, stat) {
+			if (err) return false;
+			$scope.libros = body;
+		});
+	};
 	
 }]);
