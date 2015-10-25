@@ -7,18 +7,23 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 
 # Por Hacer
 ## Generales
-*	Incluir [Ng-Animate](https://docs.angularjs.org/api/ngAnimate) al proyecto
+*    Incluir [Ng-Animate](https://docs.angularjs.org/api/ngAnimate) al proyecto
+
 ## Inicio 
+
 [http://localhost:1337/](http://localhost:1337) o '/'
+
 *	Cambiar comportamiento o contenido al estar logeado
-*	[Login](http://localhost:1337/login) deberia devolver siempre **html** y no **JSON**
+*	El [Login](http://localhost:1337/login) deberia devolver siempre **html** y no **JSON**
 *	Limite de logins por usuario
 	*	No permitir mas de **_n_** intentos 
 	*	Bloquear Usuarios con exceso de intentos
 	*	Hablitar funcionalidad para desbloquear
 
 ## Obras
+
 [http://localhost:1337/app#/Obras](http://localhost:1337/app#/Obras) o '/app#/Obras'
+
 *   Tabla Responsiva ✔✔
 *	Form Nueva Obra ✔✔
 *	Mostrar Grupos o _tipos_ por cada libro ✔✔
