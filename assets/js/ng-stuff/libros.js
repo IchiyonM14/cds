@@ -18,6 +18,22 @@ codesa
 		return "success";
 	}
 })
+.filter('librosFormatter',function () {
+	return function(input){
+		var tmp = {}; var arr = [];
+		for (var i	 = 0; i < input.length; i++) {
+			tmp = {
+				codigo: input[i].codigo.codigo,
+				nombre: input[i].codigo.nombre,
+				tipo: input[i].grupo.tipo,
+				stock: input[i].stock,
+				createdAt: input[i].createdAt,
+			};
+			arr.push(tmp);
+		}
+		return arr;
+	}
+})
 .controller("LibrosController", ['$scope', '$http', 'ObrasService', 'GruposService', 'LibrosService', 
 function($scope, $http, ObrasService, GruposService, LibrosService){
 	
@@ -27,12 +43,17 @@ function($scope, $http, ObrasService, GruposService, LibrosService){
 	
 	$scope.newObra = {};
 	$scope.editObra = {};
+	$scope.newGrupo = {};
+	$scope.editGrupo = {};
 	
 	$scope.addingObra = false;
 	$scope.editingObra = false;
+	$scope.addingGrupo = false;
+	$scope.editingGrupo = false;
 	$scope.filter = {
 		obras: '',
-		libros: ''
+		libros: '',
+		tipos: ''
 	};
 	
 	$scope.ObrasStuff = function(){ //Datos Requeridos por vista Obras
@@ -129,6 +150,30 @@ function($scope, $http, ObrasService, GruposService, LibrosService){
 			if (err) return false;
 			$scope.libros = body;
 		});
+	};
+	
+	$scope.gruposStuff = function (){ //datos requeridos por vista Grupos
+		GruposService.getAll(function (err, body, stat) {
+			if (err) return false;
+			$scope.tipos = body;
+		})
+	};
+	
+	$scope.setNewGrupo = function () {
+		$scope.newGrupo = {};
+		$scope.addingGrupo = true;
+	};
+	
+	$scope.setEditGrupo = function () {
+		
+	};
+	$scope.deleteGrupo = function () {
+		
+	};
+	
+	$scope.cancelGrupos = function () {
+		$scope.addingGrupo = false;
+		$scope.editingGrupo = false;
 	};
 	
 }]);

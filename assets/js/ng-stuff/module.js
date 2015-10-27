@@ -14,6 +14,10 @@ codesa.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'templates/libros.html',
 			controller: 'LibrosController'
 		})
+		.when('/Grupos', {
+			templateUrl: 'templates/grupos.html',
+			controller: 'LibrosController'
+		})
 	// $locationProvider.html5Mode(true);
 // 	// route for the about page
 // 		.when('/about', {
