@@ -62,6 +62,7 @@ codesa
 			.error(function(err, stat){
 				callback(err, null, stat);
 			})
-		}
+		},
+		create: {}
 	}
 }]);

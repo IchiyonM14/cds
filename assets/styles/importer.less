@@ -72,6 +72,12 @@ body {
 		padding-top: 0px;
 	}
 }
+.pt-100-on-xs{
+	padding-top: 100px;
+	@media @small-dsk-n-up{
+		padding-top: 0px;
+	}
+}
 .label{
 	&.on-table-label{
 		font-size: 100%;
@@ -132,4 +138,7 @@ table.resp-table{
 	background: -ms-linear-gradient(top, rgba(231,224,214,1) 0%, rgba(231,224,214,1) 82%, rgba(231,224,214,0.37) 100%);
 	background: linear-gradient(to bottom, rgba(231,224,214,1) 0%, rgba(231,224,214,1) 82%, rgba(231,224,214,0.37) 100%);
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e7e0d6', endColorstr='#e7e0d6', GradientType=0 );
+	&.extra{
+		height: 160px;
+	}
 }

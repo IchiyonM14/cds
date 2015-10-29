@@ -1,23 +1,34 @@
 <div class="row" ng-init="librosStuff()">
-	<div class="col-xs-12 visible-xs hidder"></div>
+	<div class="col-xs-12 visible-xs hidder extra"></div>
 	<div class="col-xs-12 fixed-on-xs">
 		<div class="row">
-			<div class="col-sm-4 col-xs-8">
-				<form>
-					<div class="form-group">
-						<label for="filterLibros" class="sr-only">Filtro</label>
-						<input ng-model="filter.libros" class="form-control" type="text" name="filterLibros" id="filterLibros" placeholder="Filtrar por aqui">
+			<div class="col-xs-12 col-md-8">
+				<form class="clearfix">
+					<div class="row">
+						<div class="col-xs-12 col-sm-6">
+							<div class="form-group">
+								<label for="filterLibros" class="sr-only">Filtro General</label>
+								<input ng-model="filter.libros.$" class="form-control" type="text" name="filterLibros" id="filterLibros" placeholder="Filtrar General">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<div class="form-group">
+								<label for="filterLibrosTipo" class="sr-only">Filtro Grupo</label>
+								<input ng-model="filter.libros.tipo" class="form-control" type="text" name="filterLibrosTipo" id="filterLibrosTipo" placeholder="Filtro tipo">
+							</div>
+						</div>
+						<div class="col-xs-6 col-sm-3">
+							<div class="form-group">
+								<label for="filterLibrosGrupo" class="sr-only">Filtro Stock</label>
+								<input ng-model="filter.libros.stock" class="form-control" type="number" name="filterLibrosGrupo" id="filterLibrosGrupo" placeholder="Filtro stock" ng-change="preventNullFilterStock()">
+							</div>
+						</div>
 					</div>
 				</form>
 			</div>
-			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
-				<!--AGREGAR CHECKBOXES POR CADA GRUPO PARA APLICAR FILTRO-->
-				<!--<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
-				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>-->
-			</div>
 		</div>
 	</div>
-	<div class="col-xs-12 pt-60-on-xs">
+	<div class="col-xs-12 pt-100-on-xs">
 		<p class="lead text-warning text-center" ng-if="!libros.length">No hay Libros en Base de Datos</p>
 		<table class="table resp-table" ng-if="libros.length">
 			<thead>
@@ -28,7 +39,7 @@
 				<th>Fecha Registro</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="libro in libros | librosFormatter | filter:filter.libros">
+				<tr ng-repeat="libro in libros | filter:filter.libros">
 					<td data-label="C&oacute;digo">{{libro.codigo}}</td>
 					<td data-label="Nombre">{{libro.nombre}}</td>
 					<td data-label="Tipo"><span class="label label-primary lead">{{libro.tipo}}</span></td>

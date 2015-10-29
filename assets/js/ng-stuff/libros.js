@@ -34,8 +34,8 @@ codesa
 		return arr;
 	}
 })
-.controller("LibrosController", ['$scope', '$http', 'ObrasService', 'GruposService', 'LibrosService', 
-function($scope, $http, ObrasService, GruposService, LibrosService){
+.controller("LibrosController", ['$scope', '$http', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 
+function($scope, $http, $filter, ObrasService, GruposService, LibrosService){
 	
 	$scope.tipos = [];
 	$scope.obras = [];
@@ -52,7 +52,7 @@ function($scope, $http, ObrasService, GruposService, LibrosService){
 	$scope.editingGrupo = false;
 	$scope.filter = {
 		obras: '',
-		libros: '',
+		libros: {},
 		tipos: ''
 	};
 	
@@ -148,7 +148,7 @@ function($scope, $http, ObrasService, GruposService, LibrosService){
 	$scope.librosStuff = function () { //datos requeridos por vista libros
 		LibrosService.getAll(function (err, body, stat) {
 			if (err) return false;
-			$scope.libros = body;
+			$scope.libros = $filter("librosFormatter")(body);
 		});
 	};
 	
@@ -176,4 +176,10 @@ function($scope, $http, ObrasService, GruposService, LibrosService){
 		$scope.editingGrupo = false;
 	};
 	
+	$scope.preventNullFilterStock = function () {
+		if (!$scope.filter.libros.stock){ //null, undefined, etc
+			$scope.filter.libros.stock = "";
+			console.log($scope.filter.libros.stock);
+		}
+	}
 }]);
