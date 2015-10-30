@@ -1,1 +1,41 @@
-<h1>esto es distribuidores</h1>
+<div class="row" ng-init="DistribStuff()">
+	
+	<div class="col-xs-12 pt-60-on-xs">
+		<!--ng-hide="addingObra || editingObra"-->
+		<p class="lead text-warning text-center" ng-if="!distribuidores.length">No hay Distribuidores en Base de Datos</p>
+		<table class="table resp-table" ng-if="distribuidores.length">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Nombre</th>
+				<th>Tel&eacute;fono</th>
+				<th>Email</th>
+				<th>Direcci&oacute;n</th>
+				<th>Fecha Registro</th>
+				<th>Vendedores</th>
+				<th>Editar/Borrar</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="distribuidor in distribuidores "> 
+					<!--| filter:filter.obras-->
+					<td data-label="C&oacute;digo">{{distribuidor.id_distribuidor}}</td>
+					<td data-label="nombre">{{distribuidor.nombre}}</td>
+					<!--USAR NG REPEAT PARA LOS SIGUIENTES 3 CAMPOS, YA  QUE SON ARRAY-->
+					<td data-label="Tel&eacute;fono">{{distribuidor.telefono}}</td>
+					<td data-label="Email">{{distribuidor.email}}</td>
+					<td data-label="Direcci&oacute;n">{{distribuidor.direccion}}</td>
+					
+					<td data-label="Fecha Registro">{{distribuidor.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+					<th data-label="Vendedores">
+						<button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Ver</button>
+					</th>
+					<td data-label="Editar/Borrar">
+						<button class="btn btn-warning" ><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span></button>
+						<!--ng-click="setEditObra(obra)"
+ng-click="deleteObra(obra)">-->
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

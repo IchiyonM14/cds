@@ -1,4 +1,17 @@
 codesa
+.factory('DistribuidorService', ['$http', function($http){
+	return {
+		getAll: function (callback) {
+			$http.get("/distribuidor")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
+	}
+}])
 .factory('ObrasService',['$http', function($http){
 	return {
 		create: function (obra, callback){
