@@ -52,10 +52,10 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 
 [http://localhost:1337/app#/Obras](http://localhost:1337/app#/Obras) o '/app#/Obras'
 
-*	Afinar el Filter
-	*	Permitir buscar por stock y tipo
-*	Labels a Stock y Tipo en Tabla
-	*	Stock rojo cuando cero, en menos de 10 amarillo, verde de lo contrario
+*	Afinar el Filter ✔✔
+	*	Permitir buscar por stock y tipo ✔✔
+*	Labels a Stock y Tipo en Tabla ✔✔
+	*	Stock rojo cuando cero, en menos de 10 amarillo, verde de lo contrario ✔✔
 
 # Casos
 ## Obras

@@ -18,6 +18,14 @@ codesa.config(function ($routeProvider, $locationProvider) {
 			templateUrl: 'templates/grupos.html',
 			controller: 'LibrosController'
 		})
+		.when('/Distribuidores', {
+			templateUrl: 'templates/distribs.html',
+			controller: 'DistribController'
+		})
+		.when('/Vendedores', {
+			templateUrl: 'templates/vends.html',
+			controller: 'DistribController'
+		})
 	// $locationProvider.html5Mode(true);
 // 	// route for the about page
 // 		.when('/about', {

@@ -34,8 +34,8 @@ codesa
 		return arr;
 	}
 })
-.controller("LibrosController", ['$scope', '$http', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 
-function($scope, $http, $filter, ObrasService, GruposService, LibrosService){
+.controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 
+function($scope, $filter, ObrasService, GruposService, LibrosService){
 	
 	$scope.tipos = [];
 	$scope.obras = [];
