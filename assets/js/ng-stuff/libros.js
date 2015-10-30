@@ -164,11 +164,43 @@ function($scope, $http, $filter, ObrasService, GruposService, LibrosService){
 		$scope.addingGrupo = true;
 	};
 	
-	$scope.setEditGrupo = function () {
-		
+	$scope.setEditGrupo = function (grupo) {
+		$scope.editingGrupo = true;
+		$scope.editGrupo = {
+			id: grupo.id,
+			tipo: grupo.tipo,
+			ntipo: ''
+		};
 	};
-	$scope.deleteGrupo = function () {
-		
+	
+	$scope.createGrupo = function () {
+		GruposService.create($scope.newGrupo, function (err, body, stat) {
+			if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
+			updateCollection(1, body, $scope.tipos);  //feedback de exito falta
+			$scope.cancelGrupos();
+		});
+	};
+	
+	$scope.updateGrupo = function(){
+		GruposService.update({
+			tipo: $scope.editGrupo.ntipo
+		}, $scope.editGrupo.id, function (err, body, stat) {
+			if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+			/*********
+				CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
+				ARREGLAR ASAP!
+			********* */
+			updateCollection(2, body, $scope.tipos, "id");  //feedback de exito falta
+			$scope.cancelGrupos();
+		});
+	}
+	
+	$scope.deleteGrupo = function (grupo) {
+		confirm("¿Esta seguro de querer Borrar el Grupo "+grupo.tipo+"? \n[CAMBIAR ESTO]") &&
+		GruposService.delete(grupo.id, function (err, body, stat) {
+			if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+			updateCollection(3, body, $scope.tipos, "id"); //feedback de exito falta
+		})
 	};
 	
 	$scope.cancelGrupos = function () {

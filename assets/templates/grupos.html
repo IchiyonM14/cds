@@ -22,7 +22,7 @@
 			<legend>Nueva Obra</legend>
 			<div class="form-group">
 				<label for="nombreGrupo">Nombre del Grupo</label>
-				<input ng-model="newObra.codigo" class="form-control" type="text" name="nombreGrupo" id="nombreGrupo" placeholder="Nombre" ng-required="true">
+				<input ng-model="newGrupo.tipo" class="form-control" type="text" name="nombreGrupo" id="nombreGrupo" placeholder="Nombre" ng-required="true">
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-default">Crear Nuevo</button>
@@ -30,6 +30,19 @@
 			</div>
 		</form>
 	</div>  <!--template for new Grupo -->
+	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="editingGrupo"> <!-- template for Edit Grupo -->
+		<form ng-submit="updateGrupo()">
+			<legend>Editar Grupo</legend>
+			<div class="form-group">
+				<label for="editTipoGrupo">Nombre del Grupo</label>
+				<input ng-model="editGrupo.ntipo" class="form-control" type="text" name="editTipoGrupo" id="editTipoGrupo" placeholder="Nombre ({{editGrupo.tipo}})" ng-required="true">
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Editar</button>
+				<button class="btn btn-danger visible-xs-inline" ng-if="addingGrupo || editingGrupo" ng-click="cancelGrupos()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</form>
+	</div>  <!--template for Edit Grupo -->
 	<div class="col-xs-12 pt-60-on-xs" ng-hide="addingGrupo || editingGrupo">
 		<p class="lead text-warning text-center" ng-if="!tipos.length">No hay Grupos en Base de Datos</p>
 		<table class="table resp-table" ng-if="tipos.length">

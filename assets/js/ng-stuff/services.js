@@ -54,6 +54,15 @@ codesa
 }])
 .factory('GruposService',['$http', function($http){
 	return {
+		create: function(grupo, callback){
+			$http.post("/grupos",grupo)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
 		getAll: function(callback){
 			$http.get("/grupos")
 			.success(function(body, stat){
@@ -63,6 +72,23 @@ codesa
 				callback(err, null, stat);
 			})
 		},
-		create: {}
+		update: function (grupo, grupoId, callback) {
+			$http.post("/grupos/"+grupoId, grupo)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})	
+		},
+		delete: function(grupoId, callback){
+			$http.delete("/grupos/"+grupoId)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
 	}
 }]);
