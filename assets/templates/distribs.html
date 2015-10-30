@@ -1,7 +1,45 @@
 <div class="row" ng-init="DistribStuff()">
-	
-	<div class="col-xs-12 pt-60-on-xs">
-		<!--ng-hide="addingObra || editingObra"-->
+	<div class="col-xs-12 visible-xs hidder" ng-hide="addingDistrib || editingDistrib"></div>
+	<div class="col-xs-12 fixed-on-xs">
+		<div class="row">
+			<div class="col-sm-4 col-xs-8">
+				<form>
+					<div class="form-group">
+						<label for="filterDistribuidor" class="sr-only">Filtro</label>
+						<input ng-model="filter.distribuidor" ng-if="!(addingDistrib || editingDistrib)" class="form-control" type="text" name="filterDistribuidor" id="filterDistribuidor"
+						placeholder="Filtrar por aqui">
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
+				<button class="btn btn-primary" ng-click="setNewDistribuidor()" ng-if="!(addingDistrib || editingDistrib)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-danger hidden-xs" ng-if="addingDistrib || editingDistrib" ng-click="cancelDistribuidor()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</div>
+	</div>
+	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="addingDistrib"> <!-- template for new Distribuidor-->
+		<form ng-submit="createDistribuidor()">
+			<legend>Nuevo Distribuidor</legend>
+			<div class="form-group">
+				<label for="codigoDistribuidor">C&oacute;digo de Distribuidor</label>
+				<input ng-model="newDistribuidor.id_distribuidor" class="form-control" type="text" name="codigoDistribuidor" id="codigoDistribuidor" placeholder="C&oacute;digo" ng-required="true">
+			</div>
+			<div class="form-group">
+				<label for="nombreDistribuidor">Nombre Distribuidor</label>
+				<input ng-model="newDistribuidor.nombre" class="form-control" type="text" name="nombreDistribuidor" id="nombreDistribuidor" placeholder="Nombre" ng-required="true">
+			</div>
+			<div class="form-group">
+				<label for="telefonoDistribuidor" ng-click="newDistribuidor.telefono.push('')">Tel&eacute;fonos</label>
+				<input ng-repeat="tel in newDistribuidor.telefono" ng-model="tel" class="form-control" type="text" name="telefonoDistribuidor{{$index+1}}" id="telefonoDistribuidor{{$index+1}}" placeholder="Te&eacute;fono {{$index+1}}">
+				
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Crear Nuevo</button>
+				<button class="btn btn-danger visible-xs-inline" ng-if="addingDistrib || editingDistrib" ng-click="cancelDistribuidor()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</form>
+	</div>  <!--template for new Distribuidor-->
+	<div class="col-xs-12 pt-60-on-xs" ng-hide="addingDistrib || editingDistrib">
 		<p class="lead text-warning text-center" ng-if="!distribuidores.length">No hay Distribuidores en Base de Datos</p>
 		<table class="table resp-table" ng-if="distribuidores.length">
 			<thead>
@@ -15,22 +53,21 @@
 				<th>Editar/Borrar</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="distribuidor in distribuidores "> 
-					<!--| filter:filter.obras-->
+				<tr ng-repeat="distribuidor in distribuidores | filter:filter.distribuidor">
 					<td data-label="C&oacute;digo">{{distribuidor.id_distribuidor}}</td>
 					<td data-label="nombre">{{distribuidor.nombre}}</td>
 					<!--USAR NG REPEAT PARA LOS SIGUIENTES 3 CAMPOS, YA  QUE SON ARRAY-->
 					<td data-label="Tel&eacute;fono">{{distribuidor.telefono}}</td>
 					<td data-label="Email">{{distribuidor.email}}</td>
 					<td data-label="Direcci&oacute;n">{{distribuidor.direccion}}</td>
-					
+
 					<td data-label="Fecha Registro">{{distribuidor.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
 					<th data-label="Vendedores">
 						<button class="btn btn-default"><span class="glyphicon glyphicon-search"></span> Ver</button>
 					</th>
 					<td data-label="Editar/Borrar">
-						<button class="btn btn-warning" ><span class="glyphicon glyphicon-pencil"></span></button>
-						<button class="btn btn-danger" ><span class="glyphicon glyphicon-remove"></span></button>
+						<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
 						<!--ng-click="setEditObra(obra)"
 ng-click="deleteObra(obra)">-->
 					</td>

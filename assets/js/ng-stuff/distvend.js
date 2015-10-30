@@ -5,6 +5,13 @@ function name($scope, DistribuidorService) {
 	
 	$scope.distribuidores = [];
 	$scope.vendedores = [];
+	
+	$scope.newDistribuidor = {};
+	$scope.editDistribuidor = {};
+	
+	$scope.filter = {
+		distribuidor: '',
+	};
 
 	$scope.DistribStuff = function(){ //datos requeridos en vista distrib
 		DistribuidorService.getAll(function(err, body, stat){
@@ -12,6 +19,22 @@ function name($scope, DistribuidorService) {
 			$scope.distribuidores = body;
 			console.log($scope.distribuidores);
 		})
+	};
+	
+	$scope.setNewDistribuidor = function () {
+		$scope.newDistribuidor = {
+			telefono: ['uno', 'dos', 'tres']
+		};
+		$scope.addingDistrib = true;
+	};
+	
+	$scope.createDistribuidor = function(){
+		alert("right invoking");
+	};
+	
+	$scope.cancelDistribuidor = function () {
+		$scope.addingDistrib = false;
+		$scope.editingDistrib = false;
 	};
 	
 }])
