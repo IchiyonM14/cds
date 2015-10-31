@@ -10,6 +10,7 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 *   Incluir [Ng-Animate](https://docs.angularjs.org/api/ngAnimate) al proyecto
 *	Cambiar 404 500 y 403 pages
 *	Habilitar [CSRF](http://sailsjs.org/documentation/reference/configuration/sails-config-csrf)
+*	Habilitar paginacion para todas las tablas de datos
 
 ## Inicio 
 

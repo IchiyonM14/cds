@@ -23,7 +23,10 @@ function name($scope, DistribuidorService) {
 	
 	$scope.setNewDistribuidor = function () {
 		$scope.newDistribuidor = {
-			telefono: ['uno', 'dos', 'tres']
+			telefono: [],
+			email: [],
+			direccion: [],
+			tmp: {}
 		};
 		$scope.addingDistrib = true;
 	};
@@ -36,6 +39,50 @@ function name($scope, DistribuidorService) {
 		$scope.addingDistrib = false;
 		$scope.editingDistrib = false;
 	};
+	
+	
+	
+	$scope.addTel = function(obj){
+		if (obj.tmp && obj.tmp.phone){
+			obj.telefono.push(obj.tmp.phone);
+			obj.tmp.phone = "";
+		}
+	};
+	
+	$scope.removeTel = function (tel, obj) {
+		var ind = obj.telefono.indexOf(tel);
+		if ( ind !== -1 ){
+			ind = obj.telefono.splice(ind, 1);
+		}
+	}
+	
+	$scope.addEmail = function(obj){
+		if (obj.tmp && obj.tmp.mail){
+			obj.email.push(obj.tmp.mail);
+			obj.tmp.mail = "";
+		}
+	}
+	
+	$scope.removeEmail = function (mail, obj) {
+		var ind = obj.email.indexOf(mail);
+		if ( ind !== -1 ){
+			ind = obj.email.splice(ind, 1);
+		}
+	}
+	
+	$scope.addDirec = function(obj){
+		if (obj.tmp && obj.tmp.direc){
+			obj.direccion.push(obj.tmp.direc);
+			obj.tmp.direc = "";
+		}
+	}
+	
+	$scope.removeDirec = function (address, obj) {
+		var ind = obj.direccion.indexOf(address);
+		if ( ind !== -1 ){
+			ind = obj.direccion.splice(ind, 1);
+		}
+	}
 	
 }])
 
