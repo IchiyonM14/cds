@@ -32,7 +32,20 @@ function name($scope, DistribuidorService) {
 	};
 	
 	$scope.createDistribuidor = function(){
-		alert("right invoking");
+		delete $scope.newDistribuidor.tmp;
+		DistribuidorService.create($scope.newDistribuidor, function (err, body, stat) {
+			if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
+			updateCollection(1, body, $scope.distribuidores);  //feedback de exito falta
+			$scope.cancelDistribuidor();
+		});
+	};
+	
+	$scope.deleteDistribuidor = function(distrib){
+		confirm("¿Esta seguro de querer Borrar el Distribuidor "+distrib.id_distribuidor+" ("+distrib.nombre+")? \n[CAMBIAR ESTO]") &&
+		DistribuidorService.delete(distrib.id_distribuidor, function (err, body, stat) {
+			if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+			updateCollection(3, body, $scope.distribuidores, "id_distribuidor"); //feedback de exito falta
+		})
 	};
 	
 	$scope.cancelDistribuidor = function () {
@@ -81,6 +94,32 @@ function name($scope, DistribuidorService) {
 		var ind = obj.direccion.indexOf(address);
 		if ( ind !== -1 ){
 			ind = obj.direccion.splice(ind, 1);
+		}
+	}
+	
+	function updateCollection(opt, obj, collection, field) {
+		//opt - 1-> es agregar 2 -> cambiar 3 -> borrar
+		
+		if (opt === 1){ //si es agregar
+			//push a coll
+			collection.push(obj);
+		}else{
+			// si no -> buscar index en coleccion
+			var idx = -1;
+			for (var i = 0; i < collection.length; i++) {
+				if (obj[field]  == collection[i][field]){
+					idx = i;
+					break;
+				}
+			}
+			if (idx !== -1){ //indice correcto
+				if (opt === 2){ //cambiar
+					collection[idx] = obj;
+				}else{
+					//si no -> es borrar
+					collection.splice(idx, 1);	
+				}
+			}
 		}
 	}
 	

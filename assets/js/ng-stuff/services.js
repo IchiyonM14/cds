@@ -1,8 +1,26 @@
 codesa
 .factory('DistribuidorService', ['$http', function($http){
 	return {
+		create: function(distribuidor, callback){
+			$http.post("/distribuidor", distribuidor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
 		getAll: function (callback) {
 			$http.get("/distribuidor")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
+		delete: function(distId, callback){
+			$http.delete("/distribuidor/"+distId)
 			.success(function(body, stat){
 				callback(null, body, stat);
 			})
