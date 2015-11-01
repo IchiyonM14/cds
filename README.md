@@ -11,6 +11,8 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 *	Cambiar 404 500 y 403 pages
 *	Habilitar [CSRF](http://sailsjs.org/documentation/reference/configuration/sails-config-csrf)
 *	Habilitar paginacion para todas las tablas de datos
+*	Habilitar checkbox para datos por default en todos los form de edicion
+*	Añadir confimracion a botones de edicion
 
 ## Inicio 
 

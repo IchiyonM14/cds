@@ -39,10 +39,3 @@ codesa.config(function ($routeProvider, $locationProvider) {
 // 			controller: 'contactController'
 // 		});
 });
-codesa.directive('tooltip', function() {
-   return function(scope, elem) {
-	   setTimeout(function() {
-		   elem.tooltip();
-	   }, 500);
-   }
-})

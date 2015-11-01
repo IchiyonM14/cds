@@ -19,6 +19,15 @@ codesa
 				callback(err, null, stat);
 			})
 		},
+		update: function (distribuidor, distId, callback) {
+			$http.post("/distribuidor/"+distId, distribuidor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})	
+		},
 		delete: function(distId, callback){
 			$http.delete("/distribuidor/"+distId)
 			.success(function(body, stat){

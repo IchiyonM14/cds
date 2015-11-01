@@ -31,6 +31,20 @@ function name($scope, DistribuidorService) {
 		$scope.addingDistrib = true;
 	};
 	
+	$scope.setEditDistribuidor = function (distrib) {
+		$scope.editingDistrib = true;
+		$scope.editDistribuidor = {
+			id_distribuidor: distrib.id_distribuidor,
+			nombre: distrib.nombre,
+			nid_distribuidor: '',
+			nnombre: '',
+			telefono: distrib.telefono || [],
+			email: distrib.email || [],
+			direccion: distrib.direccion || [],
+			tmp: {}
+		};
+	};
+	
 	$scope.createDistribuidor = function(){
 		delete $scope.newDistribuidor.tmp;
 		DistribuidorService.create($scope.newDistribuidor, function (err, body, stat) {
@@ -39,6 +53,25 @@ function name($scope, DistribuidorService) {
 			$scope.cancelDistribuidor();
 		});
 	};
+	
+	$scope.updateDistribuidor = function () {
+		DistribuidorService.update({
+			nid_distribuidor: $scope.editDistribuidor.nid_distribuidor,
+			nombre: $scope.editDistribuidor.nnombre,
+			telefono: $scope.editDistribuidor.telefono.length && $scope.editDistribuidor.telefono || null,
+			email: $scope.editDistribuidor.email.length && $scope.editDistribuidor.email || null,
+			direccion: $scope.editDistribuidor.direccion.length && $scope.editDistribuidor.direccion || null,
+		}, $scope.editDistribuidor.id_distribuidor, function (err, body, stat) {
+			if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+			/*********
+				CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
+				ARREGLAR ASAP!
+			********* */
+			updateCollection(2, body, $scope.distribuidores, "id_distribuidor");  //feedback de exito falta
+			$scope.cancelDistribuidor();
+		});
+	};
+	
 	
 	$scope.deleteDistribuidor = function(distrib){
 		confirm("¿Esta seguro de querer Borrar el Distribuidor "+distrib.id_distribuidor+" ("+distrib.nombre+")? \n[CAMBIAR ESTO]") &&
@@ -56,7 +89,7 @@ function name($scope, DistribuidorService) {
 	
 	
 	$scope.addTel = function(obj){
-		if (obj.tmp && obj.tmp.phone){
+		if (obj.tmp && obj.tmp.phone && obj.telefono.indexOf(obj.tmp.phone) === -1){
 			obj.telefono.push(obj.tmp.phone);
 			obj.tmp.phone = "";
 		}
@@ -70,7 +103,7 @@ function name($scope, DistribuidorService) {
 	}
 	
 	$scope.addEmail = function(obj){
-		if (obj.tmp && obj.tmp.mail){
+		if (obj.tmp && obj.tmp.mail && obj.email.indexOf(obj.tmp.mail) === -1){
 			obj.email.push(obj.tmp.mail);
 			obj.tmp.mail = "";
 		}
@@ -84,7 +117,7 @@ function name($scope, DistribuidorService) {
 	}
 	
 	$scope.addDirec = function(obj){
-		if (obj.tmp && obj.tmp.direc){
+		if (obj.tmp && obj.tmp.direc && obj.direccion.indexOf(obj.tmp.direc) === -1){
 			obj.direccion.push(obj.tmp.direc);
 			obj.tmp.direc = "";
 		}
@@ -123,56 +156,41 @@ function name($scope, DistribuidorService) {
 		}
 	}
 	
+	$(document).on('click', '[data-triger-on-focus]', function () {
+		//get the data args
+		var args = $(this).data("triger-on-focus");
+		args = args.split("->");
+		
+		var tmpId = Math.random();
+		$(this).data("fid",tmpId);
+		
+		var cmd = "$([data-fid='"+tmpId+"'])";
+		var fargsTmp = "";
+		
+		for (var i = 0; i < args.length; i++) {
+			if ( args[i].indexOf(":") !== -1 )//has parameters
+				args[i] = args[i].split(":"); //search func arguments
+		}
+		for (var i = 0; i < args.length; i++) {
+			if ( args[i] instanceof Array ){ //func with params
+				for (var j = 1; j < args[i].length; j++) { //start at 1 cause 0 is func
+					fargsTmp += args[i][j]+",";
+				}
+				fargsTmp = "'"+fargsTmp.substring(0, fargsTmp.length - 1)+"'"; //remove last ,
+				cmd += "."+args[i][0]+"("+fargsTmp+")";
+			}else{ //regular params
+				//cmd + funcname()
+				cmd += "."+args[i]+"()";
+			}
+		}
+		console.log(fargsTmp);
+		
+		console.log(args);
+		console.log(cmd);
+		var theElement = eval(cmd);
+		console.log(theElement);
+		$(this).removeAttr("data-fid");
+		
+		
+	})
 }])
-
-// <div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra"></div>
-// 	<div class="col-xs-12 fixed-on-xs">
-// 		<div class="row">
-// 			<div class="col-sm-4 col-xs-8">
-// 				<form>
-// 					<div class="form-group">
-// 						<label for="filterObras" class="sr-only">Filtro</label>
-// 						<input ng-model="filter.obras" ng-if="!(addingObra || editingObra)" class="form-control" type="text" name="filterObras" id="filterObras" placeholder="Filtrar por aqui">
-// 					</div>
-// 				</form>
-// 			</div>
-// 			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
-// 				<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
-// 				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-// 			</div>
-// 		</div>
-// 	</div>
-// 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="addingObra"> <!-- template for new Obra-->
-// 		<form ng-submit="createObra()">
-// 			<legend>Nueva Obra</legend>
-// 			<div class="form-group">
-// 				<label for="codigoObra">C&oacute;digo de Obra</label>
-// 				<input ng-model="newObra.codigo" class="form-control" type="text" name="codigoObra" id="codigoObra" placeholder="C&oacute;digo" ng-required="true">
-// 			</div>
-// 			<div class="form-group">
-// 				<label for="nombreObra">Nombre de la Obra</label>
-// 				<input ng-model="newObra.nombre" class="form-control" type="text" name="nombreObra" id="nombreObra" placeholder="Nombre" ng-required="true">
-// 			</div>
-// 			<div class="form-group text-center">
-// 				<button type="submit" class="btn btn-default">Crear Nuevo</button>
-// 				<button class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-// 			</div>
-// 		</form>
-// 	</div>  <!--template for new Obra-->
-// 	<div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="editingObra"> <!-- template for Edit Obra-->
-// 		<form ng-submit="updateObra()">
-// 			<legend>Editar Obra</legend>
-// 			<div class="form-group">
-// 				<label for="editCodigoObra">C&oacute;digo de Obra</label>
-// 				<input ng-model="editObra.ncodigo" class="form-control" type="text" name="editCodigoObra" id="editCodigoObra" placeholder="C&oacute;digo ({{editObra.codigo}})" ng-required="true">
-// 			</div>
-// 			<div class="form-group">
-// 				<label for="editNombreObra">Nombre de la Obra</label>
-// 				<input ng-model="editObra.nnombre" class="form-control" type="text" name="editNombreObra" id="editNombreObra" placeholder="Nombre ({{editObra.nombre}})" ng-required="true">
-// 			</div>
-// 			<div class="form-group text-center">
-// 				<button type="submit" class="btn btn-default">Editar</button>
-// 				<button class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
-// 			</div>
-// 		</form>
-// 	</div>  <!--template for Edit Obra-->
