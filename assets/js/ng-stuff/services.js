@@ -1,4 +1,26 @@
 codesa
+.factory('VendedorService', ['$http', function($http){
+	return {
+		create: function(vendedor, callback){
+			$http.post("/vendedor", vendedor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
+		getAll: function(callback){
+			$http.get("/vendedor")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
+	}
+}])
 .factory('DistribuidorService', ['$http', function($http){
 	return {
 		create: function(distribuidor, callback){

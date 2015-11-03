@@ -28,7 +28,8 @@ module.exports = {
   	},
   	codigo: {
   		type: "integer",
-  		defaultsTo: 0
+  		// defaultsTo: 0
+      /* esto deberia unico y no requerido */
   	}
   }
 };

@@ -13,6 +13,7 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 *	Habilitar paginacion para todas las tablas de datos
 *	Habilitar checkbox para datos por default en todos los form de edicion
 *	Añadir confimracion a botones de edicion
+*	Teclado Numerico para inputs de telefono y numero .. _cuando sea un movil_
 
 ## Inicio 
 

@@ -1,6 +1,6 @@
 codesa
-	.controller('DistribController', ['$scope', 'DistribuidorService',
-		function name($scope, DistribuidorService) {
+	.controller('DistribController', ['$scope', 'DistribuidorService', 'VendedorService',
+		function name($scope, DistribuidorService, VendedorService) {
 			//CONTR. PARA DISTRB Y VEND.
 	
 			$scope.distribuidores = [];
@@ -8,9 +8,12 @@ codesa
 
 			$scope.newDistribuidor = {};
 			$scope.editDistribuidor = {};
+			$scope.newVendedor = {};
+			$scope.editVendedor = {};
 
 			$scope.filter = {
 				distribuidor: '',
+				vendedor: ''
 			};
 
 			$scope.DistribStuff = function () { //datos requeridos en vista distrib
@@ -19,6 +22,16 @@ codesa
 					$scope.distribuidores = body;
 					console.log($scope.distribuidores);
 				})
+			};
+			
+			$scope.VendedorStuff = function () { //datos requeridos en vista distrib
+				$scope.cargos = ['Vendedor', 'Supervisor', 'Promotor', 'Distribuidor']; //solo disponible para Vendedor
+				VendedorService.getAll(function (err, body, stat) {
+					if (err) return false;
+					$scope.vendedores = body;
+					console.log($scope.vendedores);
+				})
+				$scope.DistribStuff(); //los distribuidores son requeridos en la vista Vendedor
 			};
 
 			$scope.setNewDistribuidor = function () {
@@ -86,6 +99,30 @@ codesa
 				$scope.editingDistrib = false;
 			};
 
+			// createVendedor
+			// cancelVendedor
+			// setNewVendedor
+			// setEditVendedor
+			// deleteVendedor
+			// editingVendedor
+			
+			$scope.setNewVendedor = function () {
+				$scope.newVendedor = {};
+				$scope.addingVendedor = true;
+			};
+			
+			$scope.createVendedor = function () {
+				VendedorService.create($scope.newVendedor, function (err, body, stat) {
+					if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
+					updateCollection(1, body, $scope.vendedores);  //feedback de exito falta
+					$scope.cancelVendedor();
+				});
+			};
+			
+			$scope.cancelVendedor = function () {
+				$scope.addingVendedor = false;
+				$scope.editingVendedor = false;
+			};
 
 
 			$scope.addTel = function (obj) {
