@@ -51,6 +51,8 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 	*	ej: Rango de fechas, stock, etc
 *	Agregar tipos o grupos a Obras - _Ver caso abajo_
 
+_muchas de las cosas en esta lista deben aplicarse para todas las entidades_
+
 ## Libros
 
 [http://localhost:1337/app#/Obras](http://localhost:1337/app#/Obras) o '/app#/Obras'
@@ -59,6 +61,12 @@ El Presente Readme es para gestionar informacion relevante al desarrollo de la a
 	*	Permitir buscar por stock y tipo ✔✔
 *	Labels a Stock y Tipo en Tabla ✔✔
 	*	Stock rojo cuando cero, en menos de 10 amarillo, verde de lo contrario ✔✔
+
+## Distribuidores
+
+[http://localhost:1337/app#/Distribuidores](http://localhost:1337/app#/Distribuidores) o '/app#/Distribuidores'
+
+*	Bug al querer guardar mas de un correo (aplicar fix ASAP)
 
 # Casos
 ## Obras

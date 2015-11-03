@@ -35,7 +35,7 @@
 					<div class="form-group">
 						<label for="telefonoDistribuidor">Tel&eacute;fonos</label>
 						<div class="input-group">
-							<input ng-model="newDistribuidor.tmp.phone" class="form-control" type="text" name="telefonoDistribuidor" id="telefonoDistribuidor"
+							<input data-triger-on-focus="next->children:button" ng-model="newDistribuidor.tmp.phone" class="form-control" type="text" name="telefonoDistribuidor" id="telefonoDistribuidor"
 							placeholder="Tel&eacute;fono">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addTel(newDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-earphone"></span></button>
@@ -51,7 +51,7 @@
 					<div class="form-group">
 						<label for="emailDistribuidor">Emails</label>
 						<div class="input-group">
-							<input ng-model="newDistribuidor.tmp.mail" class="form-control" type="email" name="emailDistribuidor" id="emailDistribuidor"
+							<input data-triger-on-focus="next->children:button" ng-model="newDistribuidor.tmp.mail" class="form-control" type="email" name="emailDistribuidor" id="emailDistribuidor"
 							placeholder="Correo Electr&oacute;nico">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addEmail(newDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-envelope"></span></button>
@@ -64,7 +64,7 @@
 					<div class="form-group">
 						<label for="direccionDistribuidor">Direcciones</label>
 						<div class="input-group">
-							<input ng-model="newDistribuidor.tmp.direc" class="form-control" type="text" name="direccionDistribuidor" id="direccionDistribuidor"
+							<input data-triger-on-focus="next->children:button" ng-model="newDistribuidor.tmp.direc" class="form-control" type="text" name="direccionDistribuidor" id="direccionDistribuidor"
 							placeholder="Direcci&oacute;n">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addDirec(newDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-map-marker"></span></button>
@@ -116,7 +116,7 @@
 						<div class="form-group">
 							<label for="editTelefonoDistribuidor">Tel&eacute;fonos</label>
 							<div class="input-group">
-								<input ng-model="editDistribuidor.tmp.phone" class="form-control" type="text" name="editTelefonoDistribuidor" id="editTelefonoDistribuidor" placeholder="Añadir Tel&eacute;fono">
+								<input data-triger-on-focus="next->children:button" ng-model="editDistribuidor.tmp.phone" class="form-control" type="text" name="editTelefonoDistribuidor" id="editTelefonoDistribuidor" placeholder="Añadir Tel&eacute;fono">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addTel(editDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-earphone"></span></button>
 								</div>
@@ -132,7 +132,7 @@
 					<div class="col-sm-4">
 						<label for="editEmailDistribuidor">Tel&eacute;fonos</label>
 						<div class="input-group">
-							<input ng-model="editDistribuidor.tmp.mail" class="form-control" type="email" name="editEmailDistribuidor" id="editEmailDistribuidor" placeholder="Añadir Email">
+							<input data-triger-on-focus="next->children:button" ng-model="editDistribuidor.tmp.mail" class="form-control" type="email" name="editEmailDistribuidor" id="editEmailDistribuidor" placeholder="Añadir Email">
 							<div class="input-group-btn">
 								<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addEmail(editDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-envelope"></span></button>
 							</div>
@@ -149,7 +149,7 @@
 							
 							<label for="editDireccionDistribuidor">Direcciones</label>
 							<div class="input-group">
-								<input data-triger-on-focus="next->child:button" ng-model="editDistribuidor.tmp.direc" class="form-control" type="text" name="editDireccionDistribuidor" id="editDireccionDistribuidor" placeholder="Añadir Direcci&oacute;n">
+								<input data-triger-on-focus="next->children:button" ng-model="editDistribuidor.tmp.direc" class="form-control" type="text" name="editDireccionDistribuidor" id="editDireccionDistribuidor" placeholder="Añadir Direcci&oacute;n">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default w-glyphs w-g-first-on-bot-right" ng-click="addDirec(editDistribuidor)"><span class="glyphicon glyphicon-plus"></span> <span class="glyphicon glyphicon-map-marker"></span></button>
 								</div>
