@@ -18,6 +18,24 @@ codesa
 			.error(function(err, stat){
 				callback(err, null, stat);
 			})
+		},
+		update: function (vendedor, venId, callback) {
+			$http.post("/vendedor/"+venId, vendedor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})	
+		},
+		delete: function(vendId, callback){
+			$http.delete("/vendedor/"+vendId)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
 		}
 	}
 }])

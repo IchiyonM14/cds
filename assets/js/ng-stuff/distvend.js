@@ -98,13 +98,6 @@ codesa
 				$scope.addingDistrib = false;
 				$scope.editingDistrib = false;
 			};
-
-			// createVendedor
-			// cancelVendedor
-			// setNewVendedor
-			// setEditVendedor
-			// deleteVendedor
-			// editingVendedor
 			
 			$scope.setNewVendedor = function () {
 				$scope.newVendedor = {};
@@ -118,6 +111,42 @@ codesa
 					$scope.cancelVendedor();
 				});
 			};
+			
+			$scope.updateVendedor = function(){
+				VendedorService.update({
+					nombre: $scope.editVendedor.nnombre,
+					cargo: $scope.editVendedor.ncargo,
+				}, $scope.editVendedor.id_vendedor, function (err, body, stat) {
+					if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+					/*********
+						CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
+						ARREGLAR ASAP!
+					********* */
+					updateCollection(2, body, $scope.vendedores, "id_vendedor");  //feedback de exito falta
+					$scope.cancelVendedor();
+				});
+			}
+			
+			$scope.setEditVendedor = function(vendedor){
+				$scope.editingVendedor = true;
+				$scope.editVendedor = {
+					id_vendedor: vendedor.id_vendedor,
+					nombre: vendedor.nombre,
+					nnombre: '',
+					distribuidor: vendedor.distribuidor,
+					codigo: vendedor.codigo,
+					cargo: vendedor.cargo,
+					ncargo: ''
+				};
+			};
+			
+			$scope.deleteVendedor = function (vendedor) {
+				confirm("¿Esta seguro de querer Borrar el Vendedor " + vendedor.id_vendedor + " (" + vendedor.nombre + ")? \n[CAMBIAR ESTO]") &&
+				VendedorService.delete(vendedor.id_vendedor, function (err, body, stat) {
+					if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+					updateCollection(3, body, $scope.vendedores, "id_vendedor"); //feedback de exito falta
+				})
+			}
 			
 			$scope.cancelVendedor = function () {
 				$scope.addingVendedor = false;
