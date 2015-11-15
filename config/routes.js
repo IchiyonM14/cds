@@ -53,6 +53,9 @@ module.exports.routes = {
   // },
 
   'post /login': 'UserController.login',
+  // 'get /login': {
+  //   view: 'homepage'
+  // },
 
   '/logout': 'UserController.logout',
 

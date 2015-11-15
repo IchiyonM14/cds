@@ -17,11 +17,14 @@ module.exports = {
 	login: function(req, res) {
         passport.authenticate('local', function(err, user, info) {
             if ((err) || (!user)) {
-                return res.send({
-                    message: info.message,
-                    user: user
+                req.session.flashes = req.session.flashes || [];
+                req.session.flashes.push({
+                    status: 'danger', 
+                    message: info.message
                 });
+                return res.redirect('/');
             }
+            
             req.logIn(user, function(err) {
                 if (err) res.send(err);
                 return res.redirect('/app');
@@ -33,7 +36,6 @@ module.exports = {
 
         })(req, res);
     },
-
     logout: function(req, res) {
         req.logout();
         res.redirect('/');
