@@ -66,6 +66,7 @@
 					<td data-label="Nombre">{{obra.nombre}}</td>
 					<td data-label="Fecha Registro">{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
 					<td data-label="Grupos">
+                        <span ng-if="!obra.libros.length">&nbsp;</span>
 						<span class="label label-success on-table-label" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span>
 					</td>
 					<td data-label="Editar/Borrar">
