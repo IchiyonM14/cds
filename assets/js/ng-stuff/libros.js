@@ -36,6 +36,8 @@ codesa
 })
 .controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 
 function($scope, $filter, ObrasService, GruposService, LibrosService){
+    
+    io.socket.on('obras', function(event){console.log(event);})
 	
 	$scope.tipos = [];
 	$scope.obras = [];
