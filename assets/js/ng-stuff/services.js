@@ -1,4 +1,48 @@
 codesa
+.service("RealTime", [function(){
+    var self = this;
+    this.susbscribe = function(entity, callback){
+        io.socket.get("/"+entity, function(data){
+            callback && callback(data);
+        })
+        return self;
+    };
+    this.on = function(entity, callback){
+        io.socket.on(entity, function(event){
+            callback && callback(event);
+        })
+        return self;
+    };
+    this.manage = function(evt, arr, propname, propsToCopy){
+        //check verb
+        switch (evt.verb) {
+            case "created":
+                arr.push(evt.data);
+                break;
+            case "updated":
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i][propname] === evt.id){
+                        for (var l = 0; l < propsToCopy.length; l++) {
+                            evt.data[propsToCopy[l]] = evt.previous[propsToCopy[l]];
+                        }
+                        arr[i] = evt.data;
+                        break;
+                    }
+                }
+                break;
+            case "destroyed":
+                for (var i = 0; i < arr.length; i++) {
+                    if (arr[i][propname] === evt.id){
+                        arr.splice(i,1);
+                        break;
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+}])
 .factory('VendedorService', ['$http', function($http){
 	return {
 		create: function(vendedor, callback){

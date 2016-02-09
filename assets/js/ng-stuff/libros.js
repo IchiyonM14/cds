@@ -34,11 +34,9 @@ codesa
 		return arr;
 	}
 })
-.controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 
-function($scope, $filter, ObrasService, GruposService, LibrosService){
+.controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 'RealTime',
+function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
     
-    io.socket.on('obras', function(event){console.log(event);})
-	
 	$scope.tipos = [];
 	$scope.obras = [];
 	$scope.libros = [];
@@ -68,8 +66,17 @@ function($scope, $filter, ObrasService, GruposService, LibrosService){
 			if (err) return false;
 			$scope.obras = body;
 		});
+        
+        //Subscribe to Obras y Grupos
+        RealTime.susbscribe("obras").susbscribe("grupos");
 	};
 	
+    RealTime.on("obras", function(ev){
+        console.log(ev);
+        RealTime.manage(ev, $scope.obras, "codigo", ["createdAt","libros"]);
+        $scope.$apply();
+    })
+    
 	$scope.setNewObra = function () {
 		$scope.newObra = {};
 		$scope.addingObra = true;
@@ -88,7 +95,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService){
 	$scope.createObra = function () {
 		ObrasService.create($scope.newObra, function (err, body, stat) {
 			if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
-			updateCollection(1, body, $scope.obras);  //feedback de exito falta
+			// updateCollection(1, body, $scope.obras);  //feedback de exito falta
 			$scope.cancelObras();
 		});
 	};
@@ -103,7 +110,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService){
 				CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
 				ARREGLAR ASAP!
 			********* */
-			updateCollection(2, body, $scope.obras, "codigo");  //feedback de exito falta
+			// updateCollection(2, body, $scope.obras, "codigo");  //feedback de exito falta
 			$scope.cancelObras();
 		});
 	}
@@ -112,7 +119,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService){
 		confirm("¿Esta seguro de querer Borrar la Obra de codigo "+obra.codigo+"? \n[CAMBIAR ESTO]") &&
 		ObrasService.delete(obra.codigo, function (err, body, stat) {
 			if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
-			updateCollection(3, body, $scope.obras, "codigo"); //feedback de exito falta
+			// updateCollection(3, body, $scope.obras, "codigo"); //feedback de exito falta
 		})
 	};
 	
@@ -120,32 +127,6 @@ function($scope, $filter, ObrasService, GruposService, LibrosService){
 		$scope.addingObra = false;
 		$scope.editingObra = false;
 	};
-	
-	function updateCollection(opt, obj, collection, field) {
-		//opt - 1-> es agregar 2 -> cambiar 3 -> borrar
-		
-		if (opt === 1){ //si es agregar
-			//push a coll
-			collection.push(obj);
-		}else{
-			// si no -> buscar index en coleccion
-			var idx = -1;
-			for (var i = 0; i < collection.length; i++) {
-				if (obj[field]  == collection[i][field]){
-					idx = i;
-					break;
-				}
-			}
-			if (idx !== -1){ //indice correcto
-				if (opt === 2){ //cambiar
-					collection[idx] = obj;
-				}else{
-					//si no -> es borrar
-					collection.splice(idx, 1);	
-				}
-			}
-		}
-	}
 	
 	$scope.librosStuff = function () { //datos requeridos por vista libros
 		LibrosService.getAll(function (err, body, stat) {
