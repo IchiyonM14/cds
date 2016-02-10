@@ -45,6 +45,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
 	$scope.editObra = {};
 	$scope.newGrupo = {};
 	$scope.editGrupo = {};
+    $scope.libroToObra = {};
 	
 	$scope.addingObra = false;
 	$scope.editingObra = false;
@@ -67,15 +68,14 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
 			$scope.obras = body;
 		});
         
-        //Subscribe to Obras y Grupos
-        RealTime.susbscribe("obras").susbscribe("grupos");
+        //Subscribe to Obras
+        RealTime
+        .susbscribe("obras")
+        .on("obras", function(ev){
+            console.log(ev);
+            RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"], $scope.$apply);
+        });
 	};
-	
-    RealTime.on("obras", function(ev){
-        console.log(ev);
-        RealTime.manage(ev, $scope.obras, "codigo", ["createdAt","libros"]);
-        $scope.$apply();
-    })
     
 	$scope.setNewObra = function () {
 		$scope.newObra = {};
@@ -127,6 +127,28 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
 		$scope.addingObra = false;
 		$scope.editingObra = false;
 	};
+    
+    $scope.setLibroToObra = function(obra){
+        $scope.addingLibroToObra = true;
+        $scope.libroToObra = {
+            codigo: obra.codigo,
+            nombre: obra.nombre
+        };
+    };
+    
+    $scope.addLibroToObra = function(){
+        console.log($scope.libroToObra);
+        ObrasService.addLibroToObra($scope.libroToObra.codigo, $scope.libroToObra.grupo, function(err, body, stat){
+            if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+            //feedback de exito falta
+            $scope.cancelLibroToObra();
+        })
+    };
+    
+    $scope.cancelLibroToObra = function(){
+        $scope.addingLibroToObra = false;
+        $scope.libroToObra = {};
+    };
 	
 	$scope.librosStuff = function () { //datos requeridos por vista libros
 		LibrosService.getAll(function (err, body, stat) {

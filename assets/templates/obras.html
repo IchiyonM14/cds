@@ -50,6 +50,23 @@
 			</div>
 		</form>
 	</div>  <!--template for Edit Obra-->
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="addingLibroToObra"> <!-- template for Set Libro to Obra-->
+		<form ng-submit="addLibroToObra()">
+			<legend>Añadir Grupo a Obra</legend>
+			<div class="form-group">
+				<label for="setLibroObra">Obra</label>
+                <p class="form-control-static">{{libroToObra.nombre + "("+ libroToObra.codigo +")"}}</p>
+			</div>
+			<div class="form-group">
+				<label for="setLibroObraGrupo">Grupo</label>
+                <select class="form-control" name="setLibroObraGrupo" id="setLibroObraGrupo" ng-model="libroToObra.grupo" ng-required="true" ng-options="tipo.id as tipo.tipo for tipo in tipos"></select>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Añadir</button>
+				<button class="btn btn-danger" ng-click="cancelLibroToObra()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</form>
+	</div>  <!--template for Set Libro to Obra-->
 	<div class="col-xs-12 pt-60-on-xs" ng-hide="addingObra || editingObra">
 		<p class="lead text-warning text-center" ng-if="!obras.length">No hay Obras en Base de Datos</p>
 		<table class="table resp-table" ng-if="obras.length">
@@ -61,12 +78,16 @@
 				<th>Editar/Borrar</th>
 			</thead>
 			<tbody>
-				<tr ng-repeat="obra in obras | filter:filter.obras">
+				<tr ng-repeat="obra in obras | filter:filter.obras track by obra.codigo">
 					<td data-label="C&oacute;digo">{{obra.codigo}}</td>
 					<td data-label="Nombre">{{obra.nombre}}</td>
 					<td data-label="Fecha Registro">{{obra.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
 					<td data-label="Grupos">
-                        <span ng-if="!obra.libros.length">&nbsp;</span>
+                        <span>
+                            <button class="btn btn-primary btn-xs" ng-click="setLibroToObra(obra)">
+                                <span class="glyphicon glyphicon-plus"></span>
+                            </button>
+                        </span>
 						<span class="label label-success on-table-label" ng-repeat="tipo in obra.libros">{{tipo.grupo | grupoRelationer:tipos}}: {{tipo.stock}}</span>
 					</td>
 					<td data-label="Editar/Borrar">

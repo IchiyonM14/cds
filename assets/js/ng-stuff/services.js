@@ -13,11 +13,23 @@ codesa
         })
         return self;
     };
-    this.manage = function(evt, arr, propname, propsToCopy){
+    this.manage = function(entity, evt, arr, propname, propsToCopy, apply){
         //check verb
         switch (evt.verb) {
             case "created":
                 arr.push(evt.data);
+                apply();
+                break;
+            case "addedTo":
+                io.socket.get("/"+entity+"/"+evt.id, function(data){
+                    for (var i = 0; i < arr.length; i++) {
+                        if (arr[i][propname] === evt.id){
+                            arr[i] = data;
+                            apply();
+                            break;
+                        }
+                    }
+                })
                 break;
             case "updated":
                 for (var i = 0; i < arr.length; i++) {
@@ -29,6 +41,7 @@ codesa
                         break;
                     }
                 }
+                apply();
                 break;
             case "destroyed":
                 for (var i = 0; i < arr.length; i++) {
@@ -37,6 +50,7 @@ codesa
                         break;
                     }
                 }
+                apply();
                 break;
             default:
                 break;
@@ -160,7 +174,19 @@ codesa
 			.error(function(err, stat){
 				callback(err, null, stat);
 			})
-		}
+		},
+        addLibroToObra: function(obraId, tipoId, callback){
+            $http.post("/libros", {
+                codigo: obraId,
+                grupo: tipoId
+            })
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+        }
 	}
 }])
 .factory('LibrosService', ['$http', function($http){
