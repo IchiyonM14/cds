@@ -1,18 +1,18 @@
 <div class="row" ng-init="ObrasStuff()">
-	<div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra"></div>
+	<div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra || addingLibroToObra"></div>
 	<div class="col-xs-12 fixed-on-xs">
 		<div class="row">
 			<div class="col-sm-4 col-xs-8">
 				<form>
 					<div class="form-group">
 						<label for="filterObras" class="sr-only">Filtro</label>
-						<input ng-model="filter.obras" ng-if="!(addingObra || editingObra)" class="form-control" type="text" name="filterObras" id="filterObras" placeholder="Filtrar por aqui">
+						<input ng-model="filter.obras" ng-if="!(addingObra || editingObra || addingLibroToObra)" class="form-control" type="text" name="filterObras" id="filterObras" placeholder="Filtrar por aqui">
 					</div>
 				</form>
 			</div>
 			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
-				<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
-				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+				<button class="btn btn-primary" ng-click="setNewObra()" ng-if="!(addingObra || editingObra || addingLibroToObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra || addingLibroToObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		</div>
 	</div>
@@ -29,7 +29,7 @@
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-default">Crear Nuevo</button>
-				<button class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+				<button type="button" class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		</form>
 	</div>  <!--template for new Obra-->
@@ -46,11 +46,11 @@
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-default">Editar</button>
-				<button class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+				<button type="button" class="btn btn-danger visible-xs-inline" ng-if="addingObra || editingObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		</form>
 	</div>  <!--template for Edit Obra-->
-    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form" ng-show="addingLibroToObra"> <!-- template for Set Libro to Obra-->
+    <div class="col-xs-10 col-xs-offset-1 col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4 on-corner-form always-fixed" ng-show="addingLibroToObra"> <!-- template for Set Libro to Obra-->
 		<form ng-submit="addLibroToObra()">
 			<legend>Añadir Grupo a Obra</legend>
 			<div class="form-group">
@@ -63,7 +63,7 @@
 			</div>
 			<div class="form-group text-center">
 				<button type="submit" class="btn btn-default">Añadir</button>
-				<button class="btn btn-danger" ng-click="cancelLibroToObra()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+				<button type="button" class="btn btn-danger" ng-click="cancelLibroToObra()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		</form>
 	</div>  <!--template for Set Libro to Obra-->

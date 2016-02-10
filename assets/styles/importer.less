@@ -83,12 +83,20 @@ body {
 	top: 70px;
 	left: auto;
 	right: auto;
+    z-index: 1;
+    &.always-fixed{
+        position: fixed;
+        top: 150px;
+    }
 	@media @small-dsk-n-up{
 		margin-top: 0px;
 		position: fixed;
 		top: auto;
 		bottom: 15px;
     	right: 15px;
+        &.always-fixed{
+            top: auto;
+        }
 	}
 }
 .fixed-on-xs{
