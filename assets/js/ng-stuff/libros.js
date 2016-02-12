@@ -34,8 +34,8 @@ codesa
 		return arr;
 	}
 })
-.controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 'RealTime',
-function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
+.controller("LibrosController", ['$scope', '$filter', 'ObrasService', 'GruposService', 'LibrosService', 'RealTime', 'Notifications',
+function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, Notifications){
     
 	$scope.tipos = [];
 	$scope.obras = [];
@@ -76,6 +76,10 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime){
             RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"], $scope.$apply);
         });
 	};
+    
+    $scope.maketoast = function(){
+        Notifications.make({type: "info", body: "Hola"});
+    }
     
 	$scope.setNewObra = function () {
 		$scope.newObra = {};

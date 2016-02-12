@@ -1,4 +1,51 @@
 codesa
+.service("Notifications", [function(){
+    var title = "CODESA";
+    var Notification = window.Notification || window.mozNotification || window.webkitNotification;
+    
+    if (!Notification.permission || Notification.permission === "default"){
+        Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
+            var n = new Notification(title + " - Info", { 
+                body: 'Notificaciones Activadas!',
+                icon: '/images/info.svg',
+                vibrate: [200, 200],
+                sound: "/sounds/tone-beep.wav"
+            }); 
+        });
+    }
+    
+    this.make = function(options){
+        var svg = "", subt = "";
+        switch (options.type) {
+            case "info":
+                svg = "drawing.png";
+                subt = "Info";
+                break;
+            case "success":
+                svg = "success.svg";
+                subt = "Exito";
+                break;
+            case "warning":
+                svg = "warning.svg";
+                subt = "Advertencia";
+                break;
+            case "error":
+                svg = "error.svg";
+                subt = "Error";
+                break;
+            default:
+                svg = "info.svg";
+                subt = "Info";
+                break;
+        }
+        var n = new Notification(title + " - Info", { 
+            body: options.body || "",
+            icon: '/images/'+svg,
+            vibrate: [200, 200]
+            // sound: "/sounds/tone-beep.wav"
+        }); 
+    }
+}])
 .service("RealTime", [function(){
     var self = this;
     this.susbscribe = function(entity, callback){

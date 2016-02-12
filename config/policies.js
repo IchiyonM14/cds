@@ -37,7 +37,7 @@ module.exports.policies = {
     '*': 'isAuthenticated'
   },
   UserController: {
-    '*': 'isAuthenticated',
+    // '*': 'isAuthenticated',
     'login': true
   },
   GruposController: { //ad admin stuff
