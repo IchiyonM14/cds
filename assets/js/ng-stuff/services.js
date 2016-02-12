@@ -7,43 +7,55 @@ codesa
         Notification.requestPermission(function(status) {  // status is "granted", if accepted by user
             var n = new Notification(title + " - Info", { 
                 body: 'Notificaciones Activadas!',
-                icon: '/images/info.svg',
+                icon: '/images/info.png',
                 vibrate: [200, 200],
                 sound: "/sounds/tone-beep.wav"
-            }); 
+            });
+            n.onclick = function () {
+                window.focus();
+            };
+            setTimeout(function(){
+                n.close();
+            }, 5000);
         });
     }
     
     this.make = function(options){
-        var svg = "", subt = "";
+        var img = "", subt = "";
         switch (options.type) {
             case "info":
-                svg = "drawing.png";
+                img = "info.png";
                 subt = "Info";
                 break;
             case "success":
-                svg = "success.svg";
+                img = "success.png";
                 subt = "Exito";
                 break;
             case "warning":
-                svg = "warning.svg";
+                img = "warning.png";
                 subt = "Advertencia";
                 break;
             case "error":
-                svg = "error.svg";
+                img = "error.png";
                 subt = "Error";
                 break;
             default:
-                svg = "info.svg";
+                img = "info.png";
                 subt = "Info";
                 break;
         }
         var n = new Notification(title + " - Info", { 
             body: options.body || "",
-            icon: '/images/'+svg,
+            icon: '/images/'+img,
             vibrate: [200, 200]
             // sound: "/sounds/tone-beep.wav"
         }); 
+        n.onclick = function () {
+            window.focus();
+        };
+        setTimeout(function(){
+            n.close();
+        }, options.time || 5000);
     }
 }])
 .service("RealTime", [function(){
