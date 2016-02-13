@@ -52,6 +52,7 @@ codesa
         }); 
         n.onclick = function () {
             window.focus();
+            n.close();
         };
         setTimeout(function(){
             n.close();

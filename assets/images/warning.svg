@@ -1,20 +1,118 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" height="64" width="64" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" viewBox="0 0 63.999999 63.999999">
- <metadata id="metadata7">
-  <rdf:RDF>
-   <cc:Work rdf:about="">
-    <dc:format>image/svg+xml</dc:format>
-    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
-    <dc:title/>
-   </cc:Work>
-  </rdf:RDF>
- </metadata>
- <g id="layer1" transform="translate(0 -988.36)" fill="#f2b764">
-  <path id="path5284" d="m32 0.16211a31.838 31.838 0 0 0 -31.838 31.838 31.838 31.838 0 0 0 31.838 31.838 31.838 31.838 0 0 0 31.838 -31.838 31.838 31.838 0 0 0 -31.838 -31.838zm0.283 2.8379a29 29 0 0 1 29 29 29 29 0 0 1 -29 29 29 29 0 0 1 -29 -29 29 29 0 0 1 29 -29z" transform="translate(0 988.36)"/>
-  <g id="g6949" transform="translate(.71586 -.77980)">
-   <rect id="rect6932" height="19" width="6" y="1008.7" x="28.284"/>
-   <rect id="rect6932-5" height="5" width="6" y="1028.5" x="28.284"/>
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="36.124443mm"
+   height="36.124443mm"
+   viewBox="0 0 128 127.99999"
+   id="svg5637"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="warning.svg">
+  <defs
+     id="defs5639">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient6203">
+      <stop
+         style="stop-color:#f2b764;stop-opacity:1;"
+         offset="0"
+         id="stop6205" />
+      <stop
+         style="stop-color:#f2b764;stop-opacity:0;"
+         offset="1"
+         id="stop6207" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient6203"
+       id="linearGradient6209"
+       x1="594.66387"
+       y1="342.72559"
+       x2="722.66389"
+       y2="342.72559"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(-916.0236,199.99544)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="129.72896"
+     inkscape:cy="14.80495"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5642">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-431.01914,-276.20022)">
+    <g
+       transform="matrix(2.0101765,0,0,2.0101765,430.69349,-1710.9037)"
+       id="layer1-0"
+       style="fill:#f2b764">
+      <path
+         transform="translate(0,988.36)"
+         d="M 32,0.16211 A 31.838,31.838 0 0 0 0.162,32.00011 31.838,31.838 0 0 0 32,63.83811 31.838,31.838 0 0 0 63.838,32.00011 31.838,31.838 0 0 0 32,0.16211 Z m 0.283,2.8379 a 29,29 0 0 1 29,29 29,29 0 0 1 -29,29 29,29 0 0 1 -29,-29 29,29 0 0 1 29,-29 z"
+         id="path5284"
+         inkscape:connector-curvature="0" />
+      <g
+         transform="translate(0.71586,-0.7798)"
+         id="g6949">
+        <rect
+           x="28.284"
+           y="1008.7"
+           width="6"
+           height="19"
+           id="rect6932" />
+        <rect
+           x="28.284"
+           y="1028.5"
+           width="6"
+           height="5"
+           id="rect6932-5" />
+      </g>
+    </g>
+    <circle
+       style="opacity:0.4;fill:url(#linearGradient6209);fill-opacity:1;stroke:none;stroke-opacity:1"
+       id="path6201"
+       cx="-257.35971"
+       cy="542.72101"
+       r="64.000008"
+       transform="matrix(0.15864463,-0.98733575,0.98733575,0.15864463,0,0)" />
   </g>
- </g>
 </svg>
