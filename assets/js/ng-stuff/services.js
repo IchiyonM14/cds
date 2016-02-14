@@ -1,5 +1,5 @@
 codesa
-.service("Notifications", [function(){
+.service("Notifications", ["$rootScope", function($rootScope){
     var title = "CODESA";
     var Notification = window.Notification || window.mozNotification || window.webkitNotification;
     
@@ -20,9 +20,30 @@ codesa
         });
     }
     
-    this.make = function(options){
+    this.notify = function(socket, body){
+        //Socket -> True for Socket.io, false for $http
+        var push;
+        if (socket){
+            
+        }else{
+            //Always error
+             push = {
+                id: (new Date()).getTime().toString(),
+                title: body.raw.table,
+                body: body.raw.detail,
+                type: "error"
+            };
+            toast(push);
+        }
+    }
+    
+    function toast (push){
+        //Enviar a NotifyController
+        $rootScope.$emit("push", push);
+        if (document.hasFocus()) // si esta en la tab, no mostrar desktop notification
+            return;
         var img = "", subt = "";
-        switch (options.type) {
+        switch (push.type) {
             case "info":
                 img = "info.png";
                 subt = "Info";
@@ -44,8 +65,8 @@ codesa
                 subt = "Info";
                 break;
         }
-        var n = new Notification(title + " - Info", { 
-            body: options.body || "",
+        var n = new Notification(title + " - "+ push.title, { 
+            body: push.body || "",
             icon: '/images/'+img,
             vibrate: [200, 200]
             // sound: "/sounds/tone-beep.wav"
@@ -56,7 +77,7 @@ codesa
         };
         setTimeout(function(){
             n.close();
-        }, options.time || 5000);
+        }, push.time || 5000);
     }
 }])
 .service("RealTime", [function(){

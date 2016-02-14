@@ -77,10 +77,6 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
         });
 	};
     
-    $scope.maketoast = function(){
-        Notifications.make({type: "info", body: "Hola"});
-    }
-    
 	$scope.setNewObra = function () {
 		$scope.newObra = {};
 		$scope.addingObra = true;
@@ -98,7 +94,8 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 	
 	$scope.createObra = function () {
 		ObrasService.create($scope.newObra, function (err, body, stat) {
-			if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
+			if (err)
+                return Notifications.notify(false, err);
 			// updateCollection(1, body, $scope.obras);  //feedback de exito falta
 			$scope.cancelObras();
 		});
@@ -109,11 +106,8 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 			codigo: $scope.editObra.ncodigo,
 			nombre: $scope.editObra.nnombre
 		}, $scope.editObra.codigo, function (err, body, stat) {
-			if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
-			/*********
-				CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
-				ARREGLAR ASAP!
-			********* */
+			if (err) 
+                return Notifications.notify(false, err);
 			// updateCollection(2, body, $scope.obras, "codigo");  //feedback de exito falta
 			$scope.cancelObras();
 		});
@@ -122,7 +116,8 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 	$scope.deleteObra = function(obra){
 		confirm("¿Esta seguro de querer Borrar la Obra de codigo "+obra.codigo+"? \n[CAMBIAR ESTO]") &&
 		ObrasService.delete(obra.codigo, function (err, body, stat) {
-			if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+			if (err) 
+                return Notifications.notify(false, err);
 			// updateCollection(3, body, $scope.obras, "codigo"); //feedback de exito falta
 		})
 	};

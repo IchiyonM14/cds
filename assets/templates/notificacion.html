@@ -1,7 +1,8 @@
 <div class="notification" ng-repeat="notification in notifications">
-    <figure><img src="/images/info.svg" alt=""></figure>
+    <figure class="{{notification.type}}"><img ng-src="/images/{{notification.type}}.svg"></figure>
     <div>
-        Texto de la Notificacion
+        <strong>{{notification.title + " - "}}</strong>
+        <em>{{notification.body}}</em>
     </div>
-    <button class="btn btn-xs btn-default"><span class="glyphicon glyphicon-remove"></span></button>
+    <button class="btn btn-xs btn-default" ng-click="removePush(notification)"><span class="glyphicon glyphicon-remove"></span></button>
 </div>
