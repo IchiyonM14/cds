@@ -32,7 +32,10 @@ module.exports = {
       grupo: values.grupo
     }).exec(function(err, lib){
       if(err) return cb(err);
-      if(lib) return cb('Not unique');
+      if(lib) return cb({
+        detail: "Ya existe la llave (codigo)=("+values.codigo+") (grupo)=("+values.grupo+")",
+        table: "libros"
+      });
       cb(null, values);
     });
   }
