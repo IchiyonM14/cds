@@ -11,7 +11,7 @@
 				</form>
 			</div>
 			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
-				<button class="btn btn-primary"  ng-click="maketoast()" ng-if="!(addingObra || editingObra || addingLibroToObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-primary"  ng-click="setNewObra()" ng-if="!(addingObra || editingObra || addingLibroToObra)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
 				<button class="btn btn-danger hidden-xs" ng-if="addingObra || editingObra || addingLibroToObra" ng-click="cancelObras()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
 			</div>
 		</div>
