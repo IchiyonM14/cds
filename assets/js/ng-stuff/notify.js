@@ -1,7 +1,12 @@
 codesa
 .controller("NotifyController", ["$scope", "$rootScope", function($scope, $rootScope){
     
-    $scope.notifications = [];
+    $scope.notifications = [{
+        id: 12225522,
+        title: "Obras",
+        body: "Some Random Push",
+        type: "error"
+    }];
     
     $scope.removePush = function(push){
         var ind = seek(push);
