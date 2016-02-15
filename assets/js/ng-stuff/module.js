@@ -1,4 +1,4 @@
-var codesa = angular.module("codesa", ['ngRoute']);
+var codesa = angular.module("codesa", ['ngRoute', 'ngAnimate']);
 codesa.config(function ($routeProvider, $locationProvider) {
 	$routeProvider
 	// route for the home page

@@ -241,8 +241,8 @@ table.resp-table{
             right: 5px;
             top: 5px;
         }
-        &.animate-enter, 
-        &.animate-leave
+        &.ng-enter, 
+        &.ng-leave
         { 
             -webkit-transition: 400ms cubic-bezier(0.075, 0.820, 0.165, 1.000) all;
             -moz-transition: 400ms cubic-bezier(0.075, 0.820, 0.165, 1.000) all;
@@ -253,15 +253,15 @@ table.resp-table{
             display: block;
         } 
         
-        &.animate-enter.animate-enter-active, 
-        &.animate-leave {
+        &.ng-enter.ng-enter-active, 
+        &.ng-leave {
             opacity: 1;
             left: 0;
             height: 30px;
         }
         
-        &.animate-leave.animate-leave-active,
-        &.animate-enter {
+        &.ng-leave.ng-leave-active,
+        &.ng-enter {
             opacity: 0;
             left: -50px;
             height: 0px;
