@@ -1,5 +1,12 @@
 codesa
-.service("Notifications", ["$rootScope", function($rootScope){
+.factory("Sounds", [function(){
+    var beep = new Audio("/sounds/tone-beep.wav");
+    //cambiar a diferentes sonidos segun estado (Error, exito, etc)
+    return {
+        beep: beep
+    };
+}])
+.service("Notifications", ["$rootScope", "Sounds", function($rootScope, Sounds){
     var title = "CODESA";
     var Notification = window.Notification || window.mozNotification || window.webkitNotification;
     
@@ -39,6 +46,7 @@ codesa
     
     function toast (push){
         //Enviar a NotifyController
+        Sounds.beep.play();
         $rootScope.$emit("push", push);
         if (document.hasFocus()) // si esta en la tab, no mostrar desktop notification
             return;
