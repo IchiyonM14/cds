@@ -32,6 +32,7 @@ codesa
     
     $rootScope.$on("push", function (event, push) {
         $scope.notifications.push(push);
+        ($scope.notifications.length > 5) && $scope.notifications.splice(0,1); //remove primer push si hay mas de 5
         //set time to remove
         setTimeout(function(){
             $scope.removePush(push);
