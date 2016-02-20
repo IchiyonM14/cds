@@ -73,7 +73,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
         .susbscribe("obras")
         .on("obras", function(ev){
             console.log(ev);
-            RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"], $scope.$apply);
+            RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"]);
         });
 	};
     

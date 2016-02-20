@@ -102,19 +102,19 @@ codesa
         })
         return self;
     };
-    this.manage = function(entity, evt, arr, propname, propsToCopy, apply){
+    this.manage = function(entity, evt, arr, propname, propsToCopy){
         //check verb
         switch (evt.verb) {
             case "created":
                 arr.push(evt.data);
-                apply();
+                
                 break;
             case "addedTo":
                 io.socket.get("/"+entity+"/"+evt.id, function(data){
                     for (var i = 0; i < arr.length; i++) {
                         if (arr[i][propname] === evt.id){
                             arr[i] = data;
-                            apply();
+                            
                             break;
                         }
                     }
@@ -130,7 +130,7 @@ codesa
                         break;
                     }
                 }
-                apply();
+                
                 break;
             case "destroyed":
                 for (var i = 0; i < arr.length; i++) {
@@ -139,7 +139,7 @@ codesa
                         break;
                     }
                 }
-                apply();
+                
                 break;
             default:
                 break;
