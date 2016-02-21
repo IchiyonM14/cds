@@ -74,6 +74,7 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
         .on("obras", function(ev){
             console.log(ev);
             RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"]);
+            $scope.$apply();
         });
 	};
     
