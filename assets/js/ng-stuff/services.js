@@ -31,7 +31,33 @@ codesa
         //Socket -> True for Socket.io, false for $http
         var push;
         if (socket){
-            
+            //Socket solo emite casos de exito
+            //(Example)SOCKET CREATE ->  Object {verb: "created", data: Object, id: 500}
+            //(Example)SOCKET UPDATE ->  Object {verb: "updated", data: Object, id: 301, previous: Object}
+            //(Example)SOCKET AGREGATE ->  Object {id: 500, verb: "addedTo", attribute: "libros", addedId: 7}
+            //(Example)SOCKET DELETE ->  Object {verb: "destroyed", id: 301, previous: Object}
+            push = {
+                id: (new Date()).getTime().toString(),
+                title: socket.entity,
+                type: "success"
+            };
+            switch (socket.verb) {
+                case "created":
+                    push.body = "Registro N° "+socket.id+" creado correctamente.";
+                    break;
+                case "updated":
+                    push.body = "Registro N° "+socket.data[socket.identifier]+((socket.previous[socket.identifier] !== socket.data[socket.identifier]) && " -- Antes ("+socket.previous[socket.identifier]+") -- " || "") + " actualizado correctamente.";
+                    break;
+                case "addedTo":
+                    push.body = "Se agregó elemento \""+socket.attribute+"\" ("+socket.addedId+") al registro N° "+socket.id+" correctamente.";
+                    break;
+                case "destroyed":
+                    push.body = "Registro N° "+socket.id+" eliminado correctamente.";
+                    break;
+                default:
+                    break;
+            }
+            toast(push);
         }else{
             //Always error
              push = {
@@ -101,6 +127,9 @@ codesa
             callback && callback(event);
         })
         return self;
+    };
+    this.off = function(entity){
+        io.socket.off(entity);
     };
     this.manage = function(entity, evt, arr, propname, propsToCopy){
         //check verb

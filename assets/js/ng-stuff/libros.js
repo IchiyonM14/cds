@@ -74,7 +74,14 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
         .on("obras", function(ev){
             console.log(ev);
             RealTime.manage("obras", ev, $scope.obras, "codigo", ["createdAt","libros"]);
+            ev.entity = "obras";
+            ev.identifier = "codigo";
+            Notifications.notify(ev);
             $scope.$apply();
+        });
+        //On Angular Contr quit -- unlink Realtime for obras
+        $scope.$on("$destroy", function() {
+            RealTime.off("obras");
         });
 	};
     
