@@ -146,8 +146,8 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
     $scope.addLibroToObra = function(){
         console.log($scope.libroToObra);
         ObrasService.addLibroToObra($scope.libroToObra.codigo, $scope.libroToObra.grupo, function(err, body, stat){
-            if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
-            //feedback de exito falta
+            if (err) 
+                return Notifications.notify(false, err);
             $scope.cancelLibroToObra();
         })
     };
