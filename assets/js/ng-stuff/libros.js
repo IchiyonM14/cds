@@ -20,6 +20,15 @@ codesa
 })
 .filter('librosFormatter',function () {
 	return function(input){
+        if (!Array.isArray(input)){
+            return {
+                codigo: input.codigo.codigo,
+				nombre: input.codigo.nombre,
+				tipo: input.grupo.tipo,
+				stock: input.stock,
+				createdAt: input.createdAt
+            }
+        }
 		var tmp = {}; var arr = [];
 		for (var i	 = 0; i < input.length; i++) {
 			tmp = {
@@ -27,7 +36,7 @@ codesa
 				nombre: input[i].codigo.nombre,
 				tipo: input[i].grupo.tipo,
 				stock: input[i].stock,
-				createdAt: input[i].createdAt,
+				createdAt: input[i].createdAt
 			};
 			arr.push(tmp);
 		}
@@ -162,6 +171,31 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 			if (err) return false;
 			$scope.libros = $filter("librosFormatter")(body);
 		});
+        
+        //Subscribe to Libros
+        RealTime
+        .susbscribe("libros")
+        .on("libros", function(ev){
+            console.log(ev);
+            switch (ev.verb) {
+                case "created":
+                    io.socket.get("/libros/"+ev.id, function(data){
+                        $scope.libros.push($filter("librosFormatter")(data));    
+                    })
+                    break;
+                // Falta Borrar -- si se hace
+                default:
+                    break;
+            }
+            ev.entity = "libros";
+            ev.identifier = "id";
+            Notifications.notify(ev);
+            $scope.$apply();
+        });
+        //On Angular Contr quit -- unlink Realtime for Libros
+        $scope.$on("$destroy", function() {
+            RealTime.off("libros");
+        });
 	};
 	
 	$scope.gruposStuff = function (){ //datos requeridos por vista Grupos
