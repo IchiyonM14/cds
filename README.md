@@ -73,3 +73,6 @@ _muchas de las cosas en esta lista deben aplicarse para todas las entidades_
 ## Obras
 > seria mejor crear libros al mismo momento que se cree la obra. 
 > Osea que en el momento de creacion de la obra, crear un libro automaticamente por cada grupo existente 
+
+
+#Esto solo es prueba
