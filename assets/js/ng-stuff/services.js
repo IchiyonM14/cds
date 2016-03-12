@@ -46,7 +46,7 @@ codesa
                     push.body = "Registro N° "+socket.id+" creado correctamente.";
                     break;
                 case "updated":
-                    push.body = "Registro N° "+socket.data[socket.identifier]+((socket.previous[socket.identifier] !== socket.data[socket.identifier]) && " -- Antes ("+socket.previous[socket.identifier]+") -- " || "") + " actualizado correctamente.";
+                    push.body = "Registro N° "+( socket.data[socket.identifier] || socket.id )+(socket.data[socket.identifier] && (socket.previous[socket.identifier] !== socket.data[socket.identifier]) && " -- Antes ("+socket.previous[socket.identifier]+") -- " || "") + " actualizado correctamente.";
                     break;
                 case "addedTo":
                     push.body = "Se agregó elemento \""+socket.attribute+"\" ("+socket.addedId+") al registro N° "+socket.id+" correctamente.";

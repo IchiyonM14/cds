@@ -203,6 +203,21 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 			if (err) return false;
 			$scope.tipos = body;
 		})
+        //Subscribe to Grupos
+        RealTime
+        .susbscribe("grupos")
+        .on("grupos", function(ev){
+            console.log(ev);
+            RealTime.manage("grupos", ev, $scope.tipos, "id", ["id", "createdAt","libros"]);
+            ev.entity = "grupos";
+            ev.identifier = "id";
+            Notifications.notify(ev);
+            $scope.$apply();
+        });
+        //On Angular Contr quit -- unlink Realtime for Grupos
+        $scope.$on("$destroy", function() {
+            RealTime.off("grupos");
+        });
 	};
 	
 	$scope.setNewGrupo = function () {
@@ -221,8 +236,10 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 	
 	$scope.createGrupo = function () {
 		GruposService.create($scope.newGrupo, function (err, body, stat) {
-			if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
-			updateCollection(1, body, $scope.tipos);  //feedback de exito falta
+            if (err) 
+                return Notifications.notify(false, err);
+			// if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
+			// updateCollection(1, body, $scope.tipos);  //feedback de exito falta
 			$scope.cancelGrupos();
 		});
 	};
@@ -231,12 +248,14 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 		GruposService.update({
 			tipo: $scope.editGrupo.ntipo
 		}, $scope.editGrupo.id, function (err, body, stat) {
-			if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
-			/*********
-				CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
-				ARREGLAR ASAP!
-			********* */
-			updateCollection(2, body, $scope.tipos, "id");  //feedback de exito falta
+            if (err) 
+                return Notifications.notify(false, err);
+			// if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+			// /*********
+			// 	CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
+			// 	ARREGLAR ASAP!
+			// ********* */
+			// updateCollection(2, body, $scope.tipos, "id");  //feedback de exito falta
 			$scope.cancelGrupos();
 		});
 	}
@@ -244,8 +263,10 @@ function($scope, $filter, ObrasService, GruposService, LibrosService, RealTime, 
 	$scope.deleteGrupo = function (grupo) {
 		confirm("¿Esta seguro de querer Borrar el Grupo "+grupo.tipo+"? \n[CAMBIAR ESTO]") &&
 		GruposService.delete(grupo.id, function (err, body, stat) {
-			if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
-			updateCollection(3, body, $scope.tipos, "id"); //feedback de exito falta
+            if (err) 
+                return Notifications.notify(false, err);
+			// if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+			// updateCollection(3, body, $scope.tipos, "id"); //feedback de exito falta
 		})
 	};
 	
