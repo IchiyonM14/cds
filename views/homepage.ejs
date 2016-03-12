@@ -8,7 +8,7 @@
                      <a href="/app" class="btn btn-default btn-lg">Ir a la App</a>
                      <a href="/logout" class="btn btn-danger btn-lg">Cerrar Sesi&oacute;n</a>
                     <% }else{ %>
-                    <form method="POST" action="/login" class="text-left">
+                    <form method="POST" action="/login<%= (req.query.redirect && ("?redirect="+encodeURIComponent(req.query.redirect)) || "") %>" class="text-left">
                         <legend>Iniciar Sesi&oacute;n</legend>
                         <% if (req.session.flashes){ %>
                             <% req.session.flashes.forEach(function(el, index){  %>

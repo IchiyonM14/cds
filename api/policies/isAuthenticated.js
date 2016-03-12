@@ -3,6 +3,6 @@ module.exports = function(req, res, next) {
         return next();
     }
     else{
-        return res.redirect('/');
+        return res.redirect('/'+( (req.originalUrl !== "/") && ("?redirect="+encodeURIComponent(req.originalUrl)) || "" ));
     }
 };
