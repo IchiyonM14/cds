@@ -36,7 +36,7 @@ module.exports.routes = {
     view: 'homepage'
   },
   
-  'get /app': 'ViewsController.app',
+  'get /app(/([a-z]*)?)*': 'ViewsController.app',
 
   /***************************************************************************
   *                                                                          *

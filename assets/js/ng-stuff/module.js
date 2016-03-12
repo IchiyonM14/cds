@@ -3,27 +3,29 @@ codesa.config(function ($routeProvider, $locationProvider) {
 	$routeProvider
 	// route for the home page
 		.when('/', {
-			templateUrl: 'templates/index.html'
+			templateUrl: '/templates/index.html'
 			// controller: 'mainController'
 		})
 		.when('/Obras', {
-			templateUrl: 'templates/obras.html',
+			templateUrl: '/templates/obras.html',
 			controller: 'LibrosController'
 		})
 		.when('/Libros', {
-			templateUrl: 'templates/libros.html',
+			templateUrl: '/templates/libros.html',
 			controller: 'LibrosController'
 		})
 		.when('/Grupos', {
-			templateUrl: 'templates/grupos.html',
+			templateUrl: '/templates/grupos.html',
 			controller: 'LibrosController'
 		})
 		.when('/Distribuidores', {
-			templateUrl: 'templates/distribs.html',
+			templateUrl: '/templates/distribs.html',
 			controller: 'DistribController'
 		})
 		.when('/Vendedores', {
-			templateUrl: 'templates/vends.html',
+			templateUrl: '/templates/vends.html',
 			controller: 'DistribController'
-		})
+		});
+        
+        $locationProvider.html5Mode(true);
 });
