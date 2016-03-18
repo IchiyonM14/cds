@@ -131,19 +131,19 @@ codesa
     this.off = function(entity){
         io.socket.off(entity);
     };
-    this.manage = function(entity, evt, arr, propname, propsToCopy){
+    this.manage = function(entity, evt, arr, propname, propsToCopy, callback){
         //check verb
         switch (evt.verb) {
             case "created":
                 arr.push(evt.data);
-                
+                callback && callback("new",arr[arr.length-1]);
                 break;
             case "addedTo":
                 io.socket.get("/"+entity+"/"+evt.id, function(data){
                     for (var i = 0; i < arr.length; i++) {
                         if (arr[i][propname] === evt.id){
                             arr[i] = data;
-                            
+                            callback && callback("added", arr[i]);
                             break;
                         }
                     }
@@ -156,6 +156,7 @@ codesa
                             evt.data[propsToCopy[l]] = evt.previous[propsToCopy[l]];
                         }
                         arr[i] = evt.data;
+                        callback && callback("update", arr[i]);
                         break;
                     }
                 }
@@ -164,7 +165,8 @@ codesa
             case "destroyed":
                 for (var i = 0; i < arr.length; i++) {
                     if (arr[i][propname] === evt.id){
-                        arr.splice(i,1);
+                        var removed = arr.splice(i,1); //remove and store removed one
+                        callback && callback("remove", removed);
                         break;
                     }
                 }

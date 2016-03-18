@@ -1,6 +1,6 @@
 codesa
-	.controller('DistribController', ['$scope', 'DistribuidorService', 'VendedorService',
-		function name($scope, DistribuidorService, VendedorService) {
+	.controller('DistribController', ['$scope', '$filter', 'DistribuidorService', 'VendedorService', 'RealTime', 'Notifications',
+		function name($scope, $filter, DistribuidorService, VendedorService, RealTime, Notifications) {
 			//CONTR. PARA DISTRB Y VEND.
 	
 			$scope.distribuidores = [];
@@ -31,6 +31,27 @@ codesa
 					$scope.vendedores = body;
 					console.log($scope.vendedores);
 				})
+                //Subscribe to Vendedores
+                RealTime
+                .susbscribe("vendedor")
+                .on("vendedor", function(ev){
+                    console.log(ev);
+                    RealTime.manage("vendedor", ev, $scope.vendedores, "id_vendedor", ["codigo", "distribuidor", "id_vendedor","createdAt"], 
+                    function(event, vend){
+                        if (event === "new"){
+                            vend.distribuidor = $filter('filter')($scope.distribuidores, {id_distribuidor: vend.distribuidor})[0];
+                        }
+                        // vend.
+                    });
+                    ev.entity = "Vendedores";
+                    ev.identifier = "id_vendedor";
+                    Notifications.notify(ev);
+                    $scope.$apply();
+                });
+                //On Angular Contr quit -- unlink Realtime for Vendedores
+                $scope.$on("$destroy", function() {
+                    RealTime.off("vendedor");
+                });
 				$scope.DistribStuff(); //los distribuidores son requeridos en la vista Vendedor
 			};
 
@@ -106,8 +127,9 @@ codesa
 			
 			$scope.createVendedor = function () {
 				VendedorService.create($scope.newVendedor, function (err, body, stat) {
-					if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
-					updateCollection(1, body, $scope.vendedores);  //feedback de exito falta
+					if (err) return Notifications.notify(false, err); 
+                    // return alert(err); //error al crear -> cambiar a otro tipo de feedback
+					// updateCollection(1, body, $scope.vendedores);  //feedback de exito falta
 					$scope.cancelVendedor();
 				});
 			};
@@ -117,12 +139,13 @@ codesa
 					nombre: $scope.editVendedor.nnombre,
 					cargo: $scope.editVendedor.ncargo,
 				}, $scope.editVendedor.id_vendedor, function (err, body, stat) {
-					if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+					if (err) return Notifications.notify(false, err); 
+                    // return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
 					/*********
 						CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
 						ARREGLAR ASAP!
 					********* */
-					updateCollection(2, body, $scope.vendedores, "id_vendedor");  //feedback de exito falta
+					// updateCollection(2, body, $scope.vendedores, "id_vendedor");  //feedback de exito falta
 					$scope.cancelVendedor();
 				});
 			}
@@ -143,8 +166,9 @@ codesa
 			$scope.deleteVendedor = function (vendedor) {
 				confirm("¿Esta seguro de querer Borrar el Vendedor " + vendedor.id_vendedor + " (" + vendedor.nombre + ")? \n[CAMBIAR ESTO]") &&
 				VendedorService.delete(vendedor.id_vendedor, function (err, body, stat) {
-					if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
-					updateCollection(3, body, $scope.vendedores, "id_vendedor"); //feedback de exito falta
+					if (err) return Notifications.notify(false, err); 
+                    // return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+					// updateCollection(3, body, $scope.vendedores, "id_vendedor"); //feedback de exito falta
 				})
 			}
 			
