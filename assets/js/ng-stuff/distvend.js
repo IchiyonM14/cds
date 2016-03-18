@@ -120,6 +120,12 @@ codesa
 				$scope.editingDistrib = false;
 			};
 			
+            $scope.showDistDetail = function(distribuidor){
+                $scope.detailDistrib = distribuidor;
+                $("#vendInDistModal").modal("show");
+            }
+            
+            
 			$scope.setNewVendedor = function () {
 				$scope.newVendedor = {};
 				$scope.addingVendedor = true;
