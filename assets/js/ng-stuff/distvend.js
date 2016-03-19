@@ -22,6 +22,21 @@ codesa
 					$scope.distribuidores = body;
 					console.log($scope.distribuidores);
 				})
+                //Subscribe to Distribuidores
+                RealTime
+                .susbscribe("distribuidor")
+                .on("distribuidor", function(ev){
+                    console.log(ev);
+                    RealTime.manage("distribuidor", ev, $scope.distribuidores, "id_distribuidor", ["vendedores","createdAt"]);
+                    ev.entity = "Distribuidores";
+                    ev.identifier = "id_distribuidor";
+                    Notifications.notify(ev);
+                    $scope.$apply();
+                });
+                //On Angular Contr quit -- unlink Realtime for Distribuidores
+                $scope.$on("$destroy", function() {
+                    RealTime.off("distribuidor");
+                });
 			};
 			
 			$scope.VendedorStuff = function () { //datos requeridos en vista distrib
@@ -30,6 +45,11 @@ codesa
 					if (err) return false;
 					$scope.vendedores = body;
 					console.log($scope.vendedores);
+				})
+                DistribuidorService.getAll(function (err, body, stat) {
+					if (err) return false;
+					$scope.distribuidores = body;
+					console.log($scope.distribuidores);
 				})
                 //Subscribe to Vendedores
                 RealTime
@@ -41,7 +61,6 @@ codesa
                         if (event === "new"){
                             vend.distribuidor = $filter('filter')($scope.distribuidores, {id_distribuidor: vend.distribuidor})[0];
                         }
-                        // vend.
                     });
                     ev.entity = "Vendedores";
                     ev.identifier = "id_vendedor";
@@ -52,7 +71,6 @@ codesa
                 $scope.$on("$destroy", function() {
                     RealTime.off("vendedor");
                 });
-				$scope.DistribStuff(); //los distribuidores son requeridos en la vista Vendedor
 			};
 
 			$scope.setNewDistribuidor = function () {
@@ -82,8 +100,9 @@ codesa
 			$scope.createDistribuidor = function () {
 				delete $scope.newDistribuidor.tmp;
 				DistribuidorService.create($scope.newDistribuidor, function (err, body, stat) {
-					if (err) return alert(err); //error al crear -> cambiar a otro tipo de feedback
-					updateCollection(1, body, $scope.distribuidores);  //feedback de exito falta
+					if (err) return Notifications.notify(false, err);
+                    // return alert(err); //error al crear -> cambiar a otro tipo de feedback
+					// updateCollection(1, body, $scope.distribuidores);  //feedback de exito falta
 					$scope.cancelDistribuidor();
 				});
 			};
@@ -96,12 +115,13 @@ codesa
 					email: $scope.editDistribuidor.email.length && $scope.editDistribuidor.email || null,
 					direccion: $scope.editDistribuidor.direccion.length && $scope.editDistribuidor.direccion || null,
 				}, $scope.editDistribuidor.id_distribuidor, function (err, body, stat) {
-					if (err) return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
+					if (err) return Notifications.notify(false, err);
+                    // return alert(err); //error al actualizar -> cambiar a otro tipo de feedback
 					/*********
 						CASO : AL ACTUALIZAR Y CAMBIAR EL CODIGO, EL ALGORITMO NO FUNCIONARA
 						ARREGLAR ASAP!
 					********* */
-					updateCollection(2, body, $scope.distribuidores, "id_distribuidor");  //feedback de exito falta
+					// updateCollection(2, body, $scope.distribuidores, "id_distribuidor");  //feedback de exito falta
 					$scope.cancelDistribuidor();
 				});
 			};
@@ -110,8 +130,9 @@ codesa
 			$scope.deleteDistribuidor = function (distrib) {
 				confirm("¿Esta seguro de querer Borrar el Distribuidor " + distrib.id_distribuidor + " (" + distrib.nombre + ")? \n[CAMBIAR ESTO]") &&
 				DistribuidorService.delete(distrib.id_distribuidor, function (err, body, stat) {
-					if (err) return alert(err); //error al borrar -> cambiar a otro tipo de feedback
-					updateCollection(3, body, $scope.distribuidores, "id_distribuidor"); //feedback de exito falta
+					if (err) return Notifications.notify(false, err); 
+                    // return alert(err); //error al borrar -> cambiar a otro tipo de feedback
+					// updateCollection(3, body, $scope.distribuidores, "id_distribuidor"); //feedback de exito falta
 				})
 			};
 
