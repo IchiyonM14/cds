@@ -31,8 +31,9 @@ module.exports.policies = {
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/
-
-  // '*': true,
+  'create': ['onlyGetOnWS'],
+  'update': ['onlyGetOnWS'],
+//   '*': ['onlyGetOnWS'], //restrict WS to only use GET Method
   ViewsController: {
     '*': 'isAuthenticated'
   },
@@ -48,7 +49,7 @@ module.exports.policies = {
   },
   LibrosController: { //ad admin stuff
     //'*': 'isAuthenticated', //later activate this
-    '*': true,
+    // '*': ['onlyGetOnWS'],
     'create': [noParmsWrapper(['id','stock']), 'noBodyParms'],
     'update': [noParmsWrapper(['id','stock']), 'noBodyParms']
   }
