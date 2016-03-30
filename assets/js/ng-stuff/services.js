@@ -180,6 +180,15 @@ codesa
 }])
 .factory('ProveedorService', ['$http', function ($http) {
     return {
+        create: function(proveedor, callback){
+			$http.post("/proveedor", proveedor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
         getAll: function (callback) {
             $http.get("/proveedor")
 			.success(function(body, stat){
@@ -188,7 +197,25 @@ codesa
 			.error(function(err, stat){
 				callback(err, null, stat);
 			})
-        }
+        },
+        update: function (proveedor, provId, callback) {
+			$http.post("/proveedor/"+provId, proveedor)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})	
+		},
+		delete: function(provId, callback){
+			$http.delete("/proveedor/"+provId)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
     }
 }])
 .factory('VendedorService', ['$http', function($http){
