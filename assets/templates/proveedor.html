@@ -1,0 +1,25 @@
+<div class="row" ng-init="ProveedorStuff()">
+    <!--<div class="col-xs-12 visible-xs hidder" ng-hide="addingObra || editingObra || addingLibroToObra"></div>-->
+    <div class="col-xs-12 pt-60-on-xs" ng-hide="addingProveedor || editingProveedor">
+		<p class="lead text-warning text-center" ng-if="!proveedores.length">No hay Proveedores en Base de Datos</p>
+		<table class="table resp-table" ng-if="proveedores.length">
+			<thead>
+				<th>C&oacute;digo</th>
+				<th>Nombre</th>
+				<th>Fecha Registro</th>
+				<th>Editar/Borrar</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="proveedor in proveedores | filter:filter.proveedores track by proveedor.id">
+					<td data-label="C&oacute;digo">{{proveedor.id}}</td>
+					<td data-label="Nombre">{{proveedor.nombre}}</td>
+					<td data-label="Fecha Registro">{{proveedor.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+					<td data-label="Editar/Borrar">
+						<button class="btn btn-warning" ng-click="setEditObra(obra)"><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger" ng-click="deleteObra(obra)"><span class="glyphicon glyphicon-remove"></span></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

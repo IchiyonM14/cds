@@ -1,3 +1,4 @@
+/// <reference path="../../../typings/angularjs/angular.d.ts" />
 codesa
 .factory("Sounds", [function(){
     var beep = new Audio("/sounds/tone-beep.wav");
@@ -174,6 +175,19 @@ codesa
                 break;
             default:
                 break;
+        }
+    }
+}])
+.factory('ProveedorService', ['$http', function ($http) {
+    return {
+        getAll: function (callback) {
+            $http.get("/proveedor")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
         }
     }
 }])

@@ -25,6 +25,10 @@ codesa.config(function ($routeProvider, $locationProvider) {
 		.when('/Vendedores', {
 			templateUrl: '/templates/vends.html',
 			controller: 'DistribController'
+		})
+        .when('/Proveedores', {
+			templateUrl: '/templates/proveedor.html',
+			controller: 'ProveedorController'
 		});
         
         $locationProvider.html5Mode(true);

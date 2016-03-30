@@ -7,8 +7,17 @@
 
 module.exports = {
 
-  attributes: {
-
-  }
+    attributes: {
+        id: { //Añadir override para no permitir ingresar id al crear -> posible con una policy
+            type: 'integer',
+            autoIncrement: true,
+            primaryKey: true,
+            unique: true
+        },
+        nombre: {
+            type: 'string',
+            unique: true
+        }
+    }
 };
 

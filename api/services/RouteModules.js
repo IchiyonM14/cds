@@ -4,6 +4,7 @@ module.exports = {
         "Obras",
         "Grupos",
         "Distribuidores",
-        "Vendedores"
+        "Vendedores",
+        "Proveedores"
     ]
 };
