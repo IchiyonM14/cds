@@ -12,13 +12,29 @@ function ($scope, $filter, ProveedorService, RealTime, Notifications) {
 	$scope.filter = {
         proveedor: ''
     };
-	
     
     $scope.ProveedorStuff = function () {
         ProveedorService.getAll(function(err, body, stat){
 			if (err) return false;
 			$scope.proveedores = body;
 		});
+        
+        //Subscribe to Obras
+        RealTime
+        .susbscribe("proveedor")
+        .on("proveedor", function(ev){
+            console.log(ev);
+            RealTime.manage("proveedor", ev, $scope.proveedores, "id", ["createdAt","id"]);
+            ev.entity = "proveedor";
+            ev.identifier = "id";
+            Notifications.notify(ev);
+            $scope.$apply();
+        });
+        //On Angular Contr quit -- unlink Realtime for obras
+        $scope.$on("$destroy", function() {
+            RealTime.off("proveedor");
+        });
+        
     };
     
     $scope.setNewProveedor = function () {
