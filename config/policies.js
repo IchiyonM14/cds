@@ -52,8 +52,14 @@ module.exports.policies = {
     // '*': ['onlyGetOnWS'],
     'create': [noParmsWrapper(['id','stock']), 'noBodyParms'],
     'update': [noParmsWrapper(['id','stock']), 'noBodyParms']
-  }
+  },
 
+  /*  FALTA POLICIES PARA DISTRIBUIDOR VENDEDOR MOVIMEINTO ETC */
+  CicloController: { //  ad admin stuff
+    //  '*': 'isAuthenticated', //later activate this
+    'create': [noParmsWrapper(['id_ciclo']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id_ciclo']), 'noBodyParms']
+  }
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *

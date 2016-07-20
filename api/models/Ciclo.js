@@ -17,7 +17,6 @@ module.exports = {
     id_ciclo: {
   		type: "string",
   		unique: true,
-  		required: true,
   		primaryKey: true
   	},
     descripcion: {
@@ -34,7 +33,7 @@ module.exports = {
       id_ciclo: values.id_ciclo
     }).exec(function(err, cicl){
       if(err) return cb(err);
-      if(lib) return cb({
+      if(cicl) return cb({
         detail: "Ya existe un ciclo actual ("+values.id_ciclo+")",
         table: "ciclo"
       });
