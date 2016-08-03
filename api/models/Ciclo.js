@@ -22,6 +22,10 @@ module.exports = {
     descripcion: {
       type: "string",
       required: true
+    },
+    movimientos: {
+      collection: 'movimiento',
+      via: 'ciclo'
     }
   },
   beforeCreate: function (values, cb) { //para garantizar el esquema MESAÑO
