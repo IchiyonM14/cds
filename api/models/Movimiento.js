@@ -29,8 +29,14 @@ module.exports = {
             type: 'string'
         },
 
+
+        //opcionales -> movimiento varia segun el tipo
         consignacion: {
             collection: 'consignacion',
+            via: 'movimiento'
+        },
+        devolucion: {
+            collection: 'devolucion',
             via: 'movimiento'
         }
 
