@@ -23,13 +23,6 @@ function noParmsWrapper(arr) {
   }
 };
 
-function findWrapper() {
-  return function (req, res, next) {
-    console.log("***************************");
-    next();
-  }
-};
-
 module.exports.policies = {
 
   /***************************************************************************
@@ -69,7 +62,8 @@ module.exports.policies = {
   },
 
   MovimientoController: {
-    'find': [findWrapper()]
+    'create': [noParmsWrapper(['id']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id']), 'noBodyParms']
   }
   /***************************************************************************
   *                                                                          *

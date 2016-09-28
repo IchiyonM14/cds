@@ -5,7 +5,8 @@
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 module.exports = {
-
+    // EVITAR QUE SE ENVIE OBJETO EN CICLO Y MULTIPLES OBJETOS DE MOVIMIENTO (EJEMPLO: CONSIGNACION Y DEVOLUCION) ✔✔
+    // FALTA BORRADO EN CASCADA PARA MOVIMIENTO Y VARIAS ENTIDADES MAS (EL BORRADO DE TODO DEBERIA DE SER LOGICO) 
     attributes: {
         id: { //Añadir override para no permitir ingresar id al crear -> posible con una policy ✔✔
             type: 'integer',
@@ -38,6 +39,19 @@ module.exports = {
         devolucion: {
             collection: 'devolucion',
             via: 'movimiento'
+        },
+        venta: {
+            collection: 'venta',
+            via: 'movimiento'
+        },
+
+        toJSON: function(){
+            var obj = this.toObject();
+            // Delete empty collections (from movement dismatch)
+            obj.consignacion && !obj.consignacion.length && (delete obj.consignacion);
+            obj.devolucion && !obj.devolucion.length && (delete obj.devolucion);
+            obj.venta && !obj.venta.length && (delete obj.venta);
+            return obj;
         }
 
     },
