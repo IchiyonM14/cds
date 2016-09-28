@@ -64,7 +64,13 @@ module.exports.policies = {
   MovimientoController: {
     'create': [noParmsWrapper(['id']), 'noBodyParms'],
     'update': [noParmsWrapper(['id']), 'noBodyParms']
-  }
+  },
+
+  // Forbid every web action on movement type and movement detail
+  ConsignacionController: { '*': false },
+  DevolucionController: { '*': false },
+  VentaController: { '*': false },
+  Detalle_movimientoController: { '*': false }
   /***************************************************************************
   *                                                                          *
   * Here's an example of mapping some policies to run before a controller    *
