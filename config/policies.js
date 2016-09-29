@@ -66,6 +66,11 @@ module.exports.policies = {
     'update': [noParmsWrapper(['id']), 'noBodyParms']
   },
 
+  ProveedorController: {
+    'create': [noParmsWrapper(['id']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id']), 'noBodyParms']
+  }
+
   // Forbid every web action on movement type and movement detail
   ConsignacionController: { '*': false },
   DevolucionController: { '*': false },

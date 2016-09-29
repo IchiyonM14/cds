@@ -9,6 +9,17 @@
  * any private information to this file!
  *
  */
+var winston = require('winston');
+var customLogger = new winston.Logger();
+
+// A file based transport logging only errors formatted as json.
+customLogger.add(winston.transports.File, {
+  level: 'info',
+  filename: 'codesa.log',
+  json: true
+});
+
+
 
 module.exports = {
 
@@ -31,8 +42,12 @@ module.exports = {
    * Set the log level in production environment to "silent"                 *
    ***************************************************************************/
 
-  // log: {
-  //   level: "silent"
-  // }
+  log: {
+     // level: 'info'
+    custom: customLogger,
+    level: 'silly',
+    // Disable captain's log so it doesn't prefix or stringify our meta data.
+    inspect: false
+  }
 
 };
