@@ -44,6 +44,10 @@ module.exports = {
             collection: 'venta',
             via: 'movimiento'
         },
+        compra: {
+            collection: 'compra',
+            via: 'movimiento'
+        },
 
         toJSON: function(){
             var obj = this.toObject();
@@ -51,6 +55,7 @@ module.exports = {
             obj.consignacion && !obj.consignacion.length && (delete obj.consignacion);
             obj.devolucion && !obj.devolucion.length && (delete obj.devolucion);
             obj.venta && !obj.venta.length && (delete obj.venta);
+            obj.compra && !obj.compra.length && (delete obj.compra);
             return obj;
         }
 

@@ -66,6 +66,11 @@ module.exports.policies = {
     'update': [noParmsWrapper(['id']), 'noBodyParms']
   },
 
+  Tipo_movimientoController: {
+    'create': [noParmsWrapper(['id']), 'noBodyParms'],
+    'update': [noParmsWrapper(['id']), 'noBodyParms']
+  },
+
   ProveedorController: {
     'create': [noParmsWrapper(['id']), 'noBodyParms'],
     'update': [noParmsWrapper(['id']), 'noBodyParms']
