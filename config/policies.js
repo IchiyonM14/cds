@@ -80,6 +80,8 @@ module.exports.policies = {
   ConsignacionController: { '*': false },
   DevolucionController: { '*': false },
   VentaController: { '*': false },
+  CompraController: { '*': false },
+  Prov_devolucionController: { '*': false },
   Detalle_movimientoController: { '*': false }
   /***************************************************************************
   *                                                                          *
