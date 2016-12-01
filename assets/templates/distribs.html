@@ -58,12 +58,12 @@
 				<div class="row sm-to-up-mar-right-0">
 					<div class="form-group">
 						<label for="codigoDistribuidor">C&oacute;digo de Distribuidor</label>
-						<input ng-model="newDistribuidor.id_distribuidor" class="form-control" type="text" name="codigoDistribuidor" id="codigoDistribuidor"
+						<input ng-model="newDistribuidor.id_distribuidor" class="form-control" type="number" step="1" max="10000" name="codigoDistribuidor" id="codigoDistribuidor"
 						placeholder="C&oacute;digo" ng-required="true">
 					</div>
 					<div class="form-group">
 						<label for="nombreDistribuidor">Nombre Distribuidor</label>
-						<input ng-model="newDistribuidor.nombre" class="form-control" type="text" name="nombreDistribuidor" id="nombreDistribuidor"
+						<input ng-model="newDistribuidor.nombre"  class="form-control" no-special-char type="text" name="nombreDistribuidor" id="nombreDistribuidor"
 						placeholder="Nombre" ng-required="true">
 					</div>
 					<div class="form-group">

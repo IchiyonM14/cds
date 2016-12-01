@@ -98,13 +98,22 @@ codesa
 			};
 
 			$scope.createDistribuidor = function () {
-				delete $scope.newDistribuidor.tmp;
-				DistribuidorService.create($scope.newDistribuidor, function (err, body, stat) {
-					if (err) return Notifications.notify(false, err);
-                    // return alert(err); //error al crear -> cambiar a otro tipo de feedback
-					// updateCollection(1, body, $scope.distribuidores);  //feedback de exito falta
-					$scope.cancelDistribuidor();
-				});
+
+				if($scope.tmpEmailCounter !== 0)
+				{
+					delete $scope.newDistribuidor.tmp;
+					DistribuidorService.create($scope.newDistribuidor, function (err, body, stat) {
+						if (err) return Notifications.notify(false, err);
+						// return alert(err); //error al crear -> cambiar a otro tipo de feedback
+						// updateCollection(1, body, $scope.distribuidores);  //feedback de exito falta
+						$scope.cancelDistribuidor();
+					});
+				}
+
+				else
+				{
+					window.alert("Debe ingresar al menos un Email válido");
+				}
 			};
 
 			$scope.updateDistribuidor = function () {
@@ -219,10 +228,14 @@ codesa
 				}
 			}
 
+			//To prevent the email field from being empty at the time of saving.
+			$scope.tmpEmailCounter = 0;
+
 			$scope.addEmail = function (obj) {
 				if (obj.tmp && obj.tmp.mail && obj.email.indexOf(obj.tmp.mail) === -1) {
 					obj.email.push(obj.tmp.mail);
 					obj.tmp.mail = "";
+					$scope.tmpEmailCounter++;
 				}
 			}
 
@@ -230,6 +243,7 @@ codesa
 				var ind = obj.email.indexOf(mail);
 				if (ind !== -1) {
 					ind = obj.email.splice(ind, 1);
+					$scope.tmpEmailCounter--;
 				}
 			}
 
