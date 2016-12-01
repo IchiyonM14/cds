@@ -1,0 +1,93 @@
+<div class="row">
+    <div class="col-xs-12">
+        <h3>Nuevo Movimiento</h3>
+        <hr>
+        <form class="form-horizontal" ng-submit="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <fieldset>
+                        <legend>Datos Generales</legend>
+                        <div class="row">
+                            <div class="form-group no-gutter">
+                                <label for="inputTipoMovimiento" class="control-label col-md-3">Tipo de Movimiento</label>
+                                <div class="col-md-8">
+                                    <select ng-model="movimiento.tipo" ng-options="tipo as tipo.nombre for tipo in tiposmovimientos track by tipo.id" name="tipoMovimiento" id="inputTipoMovimiento" class="form-control" required="required">
+                                        <option></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group no-gutter">
+                                <label for="inputFechaMovimiento" class="control-label col-md-3">Fecha</label>
+                                <div class="col-md-8">
+                                    <input type="date" ng-model="" name="FechaMovimiento" id="inputFechaMovimiento" class="form-control" required="required" >
+                                </div>
+                            </div>
+                        </div>                        
+                    </fieldset>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <fieldset>
+                        <legend>Datos de Distribuidor</legend>
+                        <div class="row">
+                            <div class="form-group no-gutter">
+                                <label for="inputDistribuidor" class="control-label col-md-3">Distribuidor</label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="" name="Distribuidor" id="inputDistribuidor" class="form-control" required="required" >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group no-gutter">
+                                <label for="inputVendedor" class="control-label col-md-3">Vendedor</label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="" name="Vendedor" id="inputVendedor" class="form-control" required="required" >
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12" ng-init="detalle = [{libro:{codigo:{codigo: 5, nombre: 'libro 1'}, grupo:{tipo: 'A'}}, cantidad: 3}];">
+                    <legend>Detalle Movimiento</legend>
+                    <table class="table resp-table">
+                        <thead>
+                            <th>Código</th>
+                            <th>Grupo</th>
+                            <th>Título</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="dt in detalle">
+                                <td data-label="Código">{{dt.libro.codigo.codigo}}</td>
+                                <td data-label="Grupo">{{dt.libro.grupo.tipo}}</td>
+                                <td data-label="Título">{{dt.libro.codigo.nombre}}</td>
+                                <td data-label="Cantidad">{{dt.cantidad}}</td>
+                                <td data-label="Acciones">
+                                    <button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-danger"><span class="glyphicon glyphicon-remove"></span></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" class="hidden-xs text-right"><strong>Agregar</strong></td>
+                                <td data-label="Agregar">
+                                    <button type="button" class="btn btn-primary">
+                                        <strong><span class="glyphicon glyphicon-plus"></span></strong>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 text-right">
+                    <button type="submit" class="btn btn-primary">Registrar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

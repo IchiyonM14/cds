@@ -29,7 +29,12 @@ codesa.config(function ($routeProvider, $locationProvider) {
         .when('/Proveedores', {
 			templateUrl: '/templates/proveedor.html',
 			controller: 'ProveedorController'
-		});
+		})
+		.when('/Movimientos', {
+			templateUrl: '/templates/movimientos.html',
+			controller: 'MovimientosController'
+		})
+		;
         
         $locationProvider.html5Mode(true);
 });

@@ -402,4 +402,17 @@ codesa
 			})
 		}
 	}
+}])
+.factory("TiposMovimiento", ["$http", function($http){
+	return {
+		getAll: function(callback){
+			$http.get("/tipo_movimiento?populate=[]")
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
+	};
 }]);
