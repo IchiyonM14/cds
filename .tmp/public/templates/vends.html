@@ -1,0 +1,146 @@
+<div class="row" ng-init="VendedorStuff()">
+	<div class="col-xs-12 visible-xs hidder" ng-hide="addingVendedor || editingVendedor"></div>
+	<div class="col-xs-12 fixed-on-xs">
+		<div class="row">
+			<div class="col-sm-4 col-xs-8">
+				<form>
+					<div class="form-group">
+						<label for="filterVendedor" class="sr-only">Filtro</label>
+						<input ng-model="filter.vendedor" ng-if="!(addingVendedor || editingVendedor)" class="form-control" type="text" name="filterVendedor"
+						id="filterVendedor" placeholder="Filtrar por aqui">
+					</div>
+				</form>
+			</div>
+			<div class="col-sm-6 col-sm-offset-2 col-xs-4 text-right">
+				<button class="btn btn-primary" ng-click="setNewVendedor()" ng-if="!(addingVendedor || editingVendedor)">Nuevo <span class="glyphicon glyphicon-plus"></span></button>
+				<button class="btn btn-danger hidden-xs" ng-if="addingVendedor || editingVendedor" ng-click="cancelVendedor()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-md-6 on-corner-form" ng-show="addingVendedor"> <!-- template for new Vendedor-->
+		<form ng-submit="createVendedor()">
+			<legend>Nuevo Vendedor</legend>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="idVendedor">ID Vendedor</label>
+								<input ng-model="newVendedor.id_vendedor" class="form-control" type="text" name="idVendedor" id="idVendedor" placeholder="ID" ng-required="true">
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="codigoVendedor">C&oacute;digo</label>
+								<input type="text" ng-model="newVendedor.codigo" class="form-control" name="codigoVendedor" id="codigoVendedor" placeholder="C&oacute;digo Bodega">
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="nombreVendedor">Nombre del vendedor</label>
+						<input ng-model="newVendedor.nombre" class="form-control" type="text" name="nombreVendedor" id="nombreVendedor" placeholder="Nombre" ng-required="true">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="distribVendedor">Distribuidor</label>
+						<select ng-options="distribuidor.id_distribuidor as distribuidor.nombre for distribuidor in distribuidores" ng-model="newVendedor.distribuidor" class="form-control" name="distribVendedor" id="distribVendedor" ng-required="true">
+							<option></option>
+						</select>
+					</div>
+					<div class="form-group">
+						<label for="cargoVendedor">Cargo</label>
+						<select ng-options="cargo for cargo in cargos" ng-model="newVendedor.cargo" class="form-control" name="cargoVendedor" id="cargoVendedor" ng-required="true">
+							<option></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Crear Nuevo</button>
+				<button class="btn btn-danger visible-xs-inline" ng-if="addingVendedor || editingVendedor" ng-click="cancelVendedor()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</form>
+	</div>  <!--template for new Vendedor-->
+	
+	<div class="col-xs-10 col-xs-offset-1 col-sm-8 col-md-6 on-corner-form" ng-show="editingVendedor"> <!-- template for edit Vendedor-->
+		<form ng-submit="updateVendedor()">
+			<legend>Editar Vendedor</legend>
+			<div class="row">
+				<div class="col-sm-6">
+					<div class="row">
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="editIdVendedor">ID Vendedor</label>
+								<p class="form-control-static">{{editVendedor.id_vendedor}}</p>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							<div class="form-group">
+								<label for="editCodigoVendedor">C&oacute;digo</label>
+								<!--<input type="text" ng-model="editVendedor.codigo" class="form-control" name="editCodigoVendedor" id="editCodigoVendedor" placeholder="C&oacute;digo Bodega">-->
+								<p class="form-control-static">{{editVendedor.codigo}}</p>
+							</div>
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="editNombreVendedor">Nombre del vendedor</label>
+						<input ng-model="editVendedor.nnombre" class="form-control" type="text" name="editNombreVendedor" id="editNombreVendedor" placeholder="Nombre ({{editVendedor.nombre}})" ng-required="true">
+					</div>
+				</div>
+				<div class="col-sm-6">
+					<div class="form-group">
+						<label for="editDistribVendedor">Distribuidor</label>
+						<p class="form-control-static">{{editVendedor.distribuidor.nombre + "(" + editVendedor.distribuidor.id_distribuidor + ")" }}</p>
+						<!--<select ng-options="distribuidor.id_distribuidor as distribuidor.nombre for distribuidor in distribuidores" ng-model="editVendedor.distribuidor" class="form-control" name="editDistribVendedor" id="editDistribVendedor" ng-required="true">
+							<option></option>
+						</select>-->
+					</div>
+					<div class="form-group">
+						<label for="editCargoVendedor">Cargo ({{editVendedor.cargo}})</label>
+						<select ng-options="cargo for cargo in cargos" ng-model="editVendedor.ncargo" class="form-control" name="editCargoVendedor" id="editCargoVendedor" ng-required="true">
+							<option></option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="form-group text-center">
+				<button type="submit" class="btn btn-default">Editar</button>
+				<button class="btn btn-danger visible-xs-inline" ng-if="addingVendedor || editingVendedor" ng-click="cancelVendedor()">Cancelar <span class="glyphicon glyphicon-remove"></span></button>
+			</div>
+		</form>
+	</div>  <!--template for edit Vendedor-->
+	
+	<div class="col-xs-12 pt-60-on-xs" ng-hide="addingVendedor || editingVendedor">
+		<p class="lead text-warning text-center" ng-if="!vendedores.length">No hay Vendedores en Base de Datos</p>
+		<table class="table resp-table" ng-if="vendedores.length">
+			<thead>
+				<tr>
+					<th>ID Vendedor</th>
+					<th>Nombre</th>
+					<th>Distribuidor</th>
+					<th>Cargo</th>
+					<th>C&oacute;digo</th>
+					<th>Fecha Registro</th>
+					<th>Editar/Borrar</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="vendedor in vendedores | filter:filter.vendedor">
+					<td data-label="ID Vendedor">{{vendedor.id_vendedor}}</td>
+					<td data-label="Nombre">{{vendedor.nombre}}</td>
+					<td data-label="Distribuidor"><span>{{vendedor.distribuidor.nombre}}</span> <strong>({{vendedor.distribuidor.id_distribuidor}})</strong></td>
+					<td data-label="Cargo">{{vendedor.cargo}}</td>
+					<td data-label="C&oacute;digo">{{vendedor.codigo || "N/A"}}</td>
+
+					<td data-label="Fecha Registro">{{vendedor.createdAt | date:'dd/MM/yy hh:mm:ss a'}}</td>
+					<td data-label="Editar/Borrar">
+						<button class="btn btn-warning" ng-click="setEditVendedor(vendedor)"><span class="glyphicon glyphicon-pencil"></span></button>
+						<button class="btn btn-danger" ng-click="deleteVendedor(vendedor)"><span class="glyphicon glyphicon-remove"></span></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
