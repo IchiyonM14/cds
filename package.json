@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "bcrypt": "^0.8.5",
+    "bcrypt-nodejs": "0.0.3",
     "ejs": "~0.8.4",
     "grunt": "0.4.2",
     "grunt-bower-task": "^0.3.4",
