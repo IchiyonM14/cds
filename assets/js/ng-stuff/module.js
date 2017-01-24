@@ -38,3 +38,13 @@ codesa.config(function ($routeProvider, $locationProvider) {
         
         $locationProvider.html5Mode(true);
 });
+codesa.run([function(){
+
+	// Fixed Edit/Create Box Esc Capture (for closing)
+	$(document).on('keydown', function(ev){
+		if (ev.keyCode == 27) {
+			$(".on-corner-form:visible").find("button.btn-danger").click();
+		}
+	});
+
+}]);
