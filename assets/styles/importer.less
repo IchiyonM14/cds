@@ -43,8 +43,18 @@ body {
 		margin-top: 50px;
 	}
 }
+textarea {
+    resize: none;
+}
 .pointer{
 	cursor: pointer;
+}
+.checkbox label + input[type=checkbox],
+.checkbox-inline label + input[type=checkbox],
+.radio label + input[type=radio],
+.radio-inline label + input[type=radio]{
+	position: static;
+	margin-left: 0px;
 }
 form .form-group.no-gutter,
 form.form-horizontal .form-group.no-gutter,
