@@ -4,51 +4,58 @@
         <hr>
         <form class="form-horizontal" ng-submit="">
             <div class="row">
-                <div class="col-xs-12 col-sm-6">
+                <div class="col-xs-12 col-sm-8">
                     <fieldset>
                         <legend>Datos Generales</legend>
                         <div class="row">
-                            <div class="form-group no-gutter">
-                                <label for="inputTipoMovimiento" class="control-label col-md-3">Tipo de Movimiento</label>
-                                <div class="col-md-8">
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group no-gutter">
+                                    <label for="inputTipoMovimiento">Tipo de Movimiento</label>
                                     <select autofocus ng-model="movimiento.tipo" ng-options="tipo as tipo.nombre for tipo in tiposmovimientos track by tipo.id" name="tipoMovimiento" id="inputTipoMovimiento" class="form-control" required="required" ng-change="tipoMovChange();">
                                         <option></option>
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group no-gutter">
-                                <label for="inputFechaMovimiento" class="control-label col-md-3">Fecha</label>
-                                <div class="col-md-8">
+                                <div class="form-group no-gutter">
+                                    <label for="inputFechaMovimiento">Fecha</label>
                                     <input type="date" ng-model="movimiento.fecha" name="FechaMovimiento" id="inputFechaMovimiento" class="form-control" required="required" >
                                 </div>
                             </div>
-                        </div>                        
-                    </fieldset>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <fieldset ng-if="movimiento.tipo && (movimiento.tipo.id === 1 || movimiento.tipo.id === 2 || movimiento.tipo.id === 3)">
-                        <legend>Datos de Distribuidor</legend>
-                        <div class="row">
-                            <div class="form-group no-gutter">
-                                <label for="inputDistribuidor" class="control-label col-md-3">Distribuidor</label>
-                                <div class="col-md-8">
-                                    <select ng-model="movimiento.distribuidor" ng-options="dist as dist.nombre for dist in distribuidores track by dist.id_distribuidor" name="Distribuidor" id="inputDistribuidor" class="form-control" required="required" >
-                                        <option></option>
-                                    </select>
+                            <div class="col-xs-12 col-sm-6">
+                                <div class="form-group no-gutter">
+                                    <label for="inputCiclo">Ciclo</label>
+                                    <input type="text" ng-model="ciclo.id_ciclo" name="Ciclo" id="inputCiclo" class="form-control" required="required" readonly>
+                                </div>
+                                <div class="form-group no-gutter">
+                                    <label for="inputObservaciones">Observaciones</label>
+                                    <textarea name="observaciones" id="inputObservaciones" class="form-control" rows="3" ng-model="movimiento.observaciones"></textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group no-gutter">
-                                <label for="inputVendedor" class="control-label col-md-3">Vendedor</label>
-                                <div class="col-md-8">
-                                    <select ng-model="movimiento.vendedor" ng-options="vend as vend.nombre for vend in movimiento.distribuidor.vendedores track by vend.id_vendedor" name="Vendedor" id="inputVendedor" class="form-control" required="required" >
-                                        <option></option>
-                                    </select>
-                                </div>
-                            </div>
+                    </fieldset>
+                </div>
+                <div class="col-xs-12 col-sm-4">
+                    <fieldset ng-if="movimiento.tipo && (movimiento.tipo.id === 1 || movimiento.tipo.id === 2 || movimiento.tipo.id === 3)">
+                        <legend>Datos de Distribuidor</legend>
+                        <div class="form-group no-gutter">
+                            <label for="inputDistribuidor">Distribuidor</label>
+                            <select ng-model="movimiento.distribuidor" ng-options="dist as dist.nombre for dist in distribuidores track by dist.id_distribuidor" name="Distribuidor" id="inputDistribuidor" class="form-control" required="required" >
+                                <option></option>
+                            </select>
+                        </div>
+                        <div class="form-group no-gutter">
+                            <label for="inputVendedor">Vendedor</label>
+                            <select ng-model="movimiento.vendedor" ng-options="vend as vend.nombre for vend in movimiento.distribuidor.vendedores track by vend.id_vendedor" name="Vendedor" id="inputVendedor" class="form-control" required="required" >
+                                <option></option>
+                            </select>
+                        </div>
+                    </fieldset>
+                    <fieldset ng-if="movimiento.tipo && (movimiento.tipo.id === 4 || movimiento.tipo.id === 5)">
+                        <legend>Datos de Proveedor</legend>
+                        <div class="form-group no-gutter">
+                            <label for="inputProveedor">Proveedor</label>
+                            <select ng-model="movimiento.proveedor" ng-options="prov as prov.nombre for prov in proveedores track by prov.id" name="Distribuidor" id="inputProveedor" class="form-control" required="required" >
+                                <option></option>
+                            </select>
                         </div>
                     </fieldset>
                 </div>
@@ -56,7 +63,7 @@
             <div class="row">
                 <div class="col-xs-12">
                     <legend>Detalle Movimiento</legend>
-                    <table class="table resp-table">
+                    <table class="table table-condensed table-hover table-bordered resp-table">
                         <thead>
                             <th>Código</th>
                             <th>Grupo</th>
@@ -85,14 +92,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <div class="form-group no-gutter">
-                        <label for="inputObservaciones">Observaciones</label>
-                        <textarea name="observaciones" id="inputObservaciones" class="form-control" rows="3" ng-model="movimiento.observaciones"></textarea>
-                    </div>
                 </div>
             </div>
             <div class="row">

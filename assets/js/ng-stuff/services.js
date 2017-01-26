@@ -413,6 +413,45 @@ codesa
 			.error(function(err, stat){
 				callback(err, null, stat);
 			})
+		}
+	};
+}])
+.factory("CiclosService", ["$http", function($http){
+
+	var getMonthName = (function (months){
+		return function(monthNum){
+			return months[monthNum];
+		}
+	})(["ENE", "FEB", "MAR", "ABR", "MAY", "JUN", "JUL", "AGO", "SEP", "OCT", "NOV", "DIC"]);
+
+	return {
+		get: function(ciclo, data, callback){
+			$http.get("/ciclo/" + ciclo, { params: data })
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
 		},
+		getActual: function(data, callback){
+			var fecha = new Date();
+			$http.get("/ciclo/" + getMonthName(fecha.getMonth())+fecha.getFullYear(), { params: data })
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		},
+		getAll: function(data, callback){
+			$http.get("/ciclo", { params: data })
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
 	};
 }]);

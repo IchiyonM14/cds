@@ -1,9 +1,10 @@
 codesa
-.controller('MovimientosController', ['$scope', "TiposMovimiento", "LibrosService", "DistribuidorService",
-function ($scope, TiposMovimiento, Libros, Distribuidor){
+.controller('MovimientosController', ['$scope', "TiposMovimiento", "LibrosService", "DistribuidorService", "ProveedorService", "CiclosService",
+function ($scope, TiposMovimiento, Libros, Distribuidor, Proveedor, Ciclo){
 
     $scope.movimiento = {};
     $scope.detalle = {};
+    $scope.ciclo = undefined;
     $scope.tiposmovimientos = [];
     $scope.distribuidores = [];
     $scope.libros = [];
@@ -12,6 +13,15 @@ function ($scope, TiposMovimiento, Libros, Distribuidor){
     $scope.addAnother = true;
     $scope.editingDetalle = false;
     var detalleToEdit = {};
+
+    Ciclo.getActual({ populate: "[]" }, function(err, ciclo, stat){
+        if (err){
+            if (stat === 404)
+                return alert("No hay Ciclo actual activo");
+            return alert("Error al traer el ciclo actual");
+        }
+        $scope.ciclo = ciclo;
+    })
 
     TiposMovimiento.getAll(function(err, tipos){
         if (err)
@@ -23,6 +33,12 @@ function ($scope, TiposMovimiento, Libros, Distribuidor){
         if (err)
             return alert("Error al traer los distribuidores");
         $scope.distribuidores = dists;
+    });
+
+    Proveedor.getAll(function(err, provs){
+        if (err)
+            return alert("Error al traer los proveedores");
+        $scope.proveedores = provs;
     });
 
     Libros.getAll(function(err, libros){
