@@ -454,4 +454,17 @@ codesa
 			})
 		}
 	};
+}])
+.factory("MovimientosService", ["$http", function($http){
+	return {
+		create: function(data, callback){
+			$http.post("/movimiento",data)
+			.success(function(body, stat){
+				callback(null, body, stat);
+			})
+			.error(function(err, stat){
+				callback(err, null, stat);
+			})
+		}
+	};
 }]);

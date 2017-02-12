@@ -48,3 +48,16 @@ codesa.run([function(){
 	});
 
 }]);
+codesa.directive("loadingAnimation", [function(){
+	return {
+		restrict: "E",
+		replace: true,
+		template:
+			'<div class="spinner-wrap">' + 
+				'<div class="spinner">' +
+					'<div class="double-bounce1"></div>' +
+					'<div class="double-bounce2"></div>' +
+				'</div>' +
+			'</div>'
+	};
+}]);

@@ -1,13 +1,15 @@
 codesa
-.controller('MovimientosController', ['$scope', "TiposMovimiento", "LibrosService", "DistribuidorService", "ProveedorService", "CiclosService",
-function ($scope, TiposMovimiento, Libros, Distribuidor, Proveedor, Ciclo){
+.controller('MovimientosController', ['$scope', "MovimientosService", "TiposMovimiento", "LibrosService", "DistribuidorService", "ProveedorService", "CiclosService", "RealTime", "Notifications",
+function ($scope, Movimientos, TiposMovimiento, Libros, Distribuidor, Proveedor, Ciclo, RealTime, Notifications){
 
     $scope.movimiento = {};
     $scope.detalle = {};
     $scope.ciclo = undefined;
+    $scope.fecha = new Date();
     $scope.tiposmovimientos = [];
     $scope.distribuidores = [];
     $scope.libros = [];
+    $scope.onRequest = false;
     
     $scope.addingDetalle = false;
     $scope.addAnother = true;
@@ -46,6 +48,55 @@ function ($scope, TiposMovimiento, Libros, Distribuidor, Proveedor, Ciclo){
             return alert("Error al traer los libros");
         $scope.libros = libros;
     });
+
+    //Subscribe to Movimientos
+    RealTime
+    .susbscribe("movimiento")
+    .on("movimiento", function(ev){
+        ev.entity = "Movimientos";
+        ev.identifier = "id";
+        Notifications.notify(ev);
+    });
+    //On Angular Contr quit -- unlink Realtime for Movimientos
+    $scope.$on("$destroy", function() {
+        RealTime.off("movimiento");
+    });
+
+    $scope.addMovimiento = function(){
+        Movimientos.create(getMovimientoPayload(), function(err, resp, stat){
+            if (err)
+                return alert("Error al tratar de crear movimiento");
+            if (stat === 201) // Creado Exitsamente
+                cleanForm();
+        });
+    };
+
+    function getMovimientoPayload(){
+        var tmp = {};
+        tmp.ciclo = $scope.ciclo.id_ciclo;
+        tmp.tipo_mov = $scope.movimiento.tipo.id;
+        tmp.detalle_mov = $scope.movimiento.detalle.map(function(elem){return { libro: elem.libro.id, cantidad: elem.cantidad } });
+        if (tmp.tipo_mov === 1 || tmp.tipo_mov === 2 || tmp.tipo_mov === 3){
+            // consignacion, devolucion o venta
+            var stmp = {
+                distribuidor: $scope.movimiento.distribuidor.id_distribuidor,
+                vendedor: $scope.movimiento.vendedor.id_vendedor
+            };
+            tmp.tipo_mov === 1 && (tmp.consignacion = stmp);
+            tmp.tipo_mov === 2 && (tmp.devolucion = stmp);
+            tmp.tipo_mov === 3 && (tmp.venta = stmp);
+        }
+        if (tmp.tipo_mov === 4 || tmp.tipo_mov === 5){
+            // compra, devolucion_proveedor o venta
+            var stmp = {
+                proveedor: $scope.movimiento.proveedor.id
+            };
+            tmp.tipo_mov === 4 && (tmp.compra = stmp);
+            tmp.tipo_mov === 5 && (tmp.devolucion_proveedor = stmp);
+        }
+        tmp.observaciones = $scope.movimiento.observaciones;
+        return tmp;
+    }
 
     $scope.addDetalle = function(){
         // validar repetidos
@@ -116,5 +167,18 @@ function ($scope, TiposMovimiento, Libros, Distribuidor, Proveedor, Ciclo){
         detalleToEdit = undefined;
         $scope.editingDetalle = false;
     };
+
+    $scope.disableMainForm = function(){
+        if (!$scope.movimiento.tipo)
+            return true;
+        if (!$scope.movimiento.detalle || !$scope.movimiento.detalle.length)
+            return true;
+        return false;
+    };
+
+    function cleanForm(){
+        $scope.movimiento = {};
+        $("#inputTipoMovimiento").focus();
+    }
 
 }]);

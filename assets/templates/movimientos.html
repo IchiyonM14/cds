@@ -1,8 +1,9 @@
 <div class="row">
+    <loading-animation ng-show="onRequest"></loading-animation>
     <div class="col-xs-12">
         <h3>Nuevo Movimiento</h3>
         <hr>
-        <form class="form-horizontal" ng-submit="">
+        <form class="form-horizontal" ng-submit="addMovimiento();">
             <div class="row">
                 <div class="col-xs-12 col-sm-8">
                     <fieldset>
@@ -17,13 +18,13 @@
                                 </div>
                                 <div class="form-group no-gutter">
                                     <label for="inputFechaMovimiento">Fecha</label>
-                                    <input type="date" ng-model="movimiento.fecha" name="FechaMovimiento" id="inputFechaMovimiento" class="form-control" required="required" >
+                                    <input type="date" ng-model="fecha" name="FechaMovimiento" id="inputFechaMovimiento" class="form-control" required="required" readonly tabindex="-1">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6">
                                 <div class="form-group no-gutter">
                                     <label for="inputCiclo">Ciclo</label>
-                                    <input type="text" ng-model="ciclo.id_ciclo" name="Ciclo" id="inputCiclo" class="form-control" required="required" readonly>
+                                    <input type="text" ng-model="ciclo.id_ciclo" name="Ciclo" id="inputCiclo" class="form-control" required="required" readonly tabindex="-1">
                                 </div>
                                 <div class="form-group no-gutter">
                                     <label for="inputObservaciones">Observaciones</label>
@@ -96,7 +97,7 @@
             </div>
             <div class="row">
                 <div class="col-xs-12 text-right">
-                    <button type="submit" class="btn btn-primary" ng-disabled="!movimiento.tipo">Registrar</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="disableMainForm();">Registrar</button>
                 </div>
             </div>
         </form>
